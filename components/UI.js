@@ -1,3 +1,5 @@
+import Button from './Button'
+
 export default function UI() {
     return (
         <div className='grid'>
@@ -6,7 +8,12 @@ export default function UI() {
                     <p>Input Container</p>
                 </div>
                 <div className='buttons-container'>
-                    Button
+                    <Button className='bg-gray-600 text-white dark:bg-gray-400 dark:text-black font-bold py-2 px-8 rounded-xl hover:scale-[1.01] hover:bg-gray-500 mr-4'>
+                        Think
+                    </Button>
+                    <Button className='bg-gray-600 text-white dark:bg-gray-400 dark:text-black font-bold py-2 px-8 rounded-xl hover:scale-[1.01] hover:bg-gray-500 mr-4'>
+                        Stop
+                    </Button>
                 </div>
                 <div className='output-container'>
                     <p>Output Container</p>

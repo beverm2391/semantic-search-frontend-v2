@@ -71,7 +71,7 @@ a {
 .col1 {
   display: grid;
   gap: 1.5rem;
-  grid-template-rows: [input-container] 2fr [buttons-container] 1fr [output-container] 7fr;
+  grid-template-rows: [input-container] auto [buttons-container] 40px [output-container] minmax(400px, 1fr);
   height: 100%;
 }
 
@@ -82,7 +82,11 @@ a {
 }
 
 .col1 > div, .col2 > div {
-  @apply bg-white dark:bg-gray-800 rounded-xl p-4;
+  @apply  dark:bg-gray-800 rounded-xl;
+}
+
+.col1 > div:not(.buttons-container), .col2 > div {
+  @apply bg-white p-4;
 }
 
 .input-container {
@@ -91,6 +95,7 @@ a {
 
 .buttons-container {
   grid-row: buttons-container;
+  gap: 1rem;
 }
 
 .output-container {
