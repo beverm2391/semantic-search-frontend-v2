@@ -22,16 +22,17 @@ html {
 }
 
 #__next {
-  @apply bg-gray-50 dark:bg-gray-900;
-  display: flex;
+  @apply bg-gray-100 dark:bg-gray-900;
   flex-direction: column;
   min-height: 100vh;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+
+@supports not (backdrop-filter: none) {
+  .sticky-nav {
+    backdrop-filter: none;
+    @apply bg-opacity-100;
+  }
 }
 
 html,
@@ -62,19 +63,44 @@ a {
 
 .grid {
   display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 2rem;
+  width: 100%;
 }
 
 .col1 {
   display: grid;
+  gap: 1.5rem;
+  grid-template-rows: [input-container] 2fr [buttons-container] 1fr [output-container] 7fr;
+  height: 100%;
 }
+
 .col2 {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .col1 > div, .col2 > div {
-  @apply bg-red-500 dark:bg-blue-300 p-4 rounded-xl;
+  @apply bg-white dark:bg-gray-800 rounded-xl p-4;
+}
+
+.input-container {
+  grid-row: input-container;
+}
+
+.buttons-container {
+  grid-row: buttons-container;
+}
+
+.output-container {
+  grid-row: output-container;
 }
 
 .settings-container {
+  position: relative;
+}
+
+.stats-container {
   position: relative;
 }

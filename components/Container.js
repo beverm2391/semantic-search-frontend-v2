@@ -27,7 +27,7 @@ export default function Container(props) {
     }
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900">
+        <div className="bg-gray-100 dark:bg-gray-900">
             <Head>
                 <title>{meta.title}</title>
                 <meta name="robots" content="follow, index" />
@@ -49,7 +49,7 @@ export default function Container(props) {
                 )}
             </Head>
             <div className="flex flex-col justify-center px-8">
-                <nav className="flex items-center justify-between w-full relative border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-16  text-gray-900 bg-gray-50  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
+                <nav className="flex items-center justify-between w-full relative border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-8  text-gray-900 bg-gray-100  dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
                     <div className="ml-[-0.60rem]">
                     </div>
                     <button
@@ -86,7 +86,7 @@ export default function Container(props) {
                     </button>
                 </nav>
             </div>
-            <main className="flex flex-col items-center px-8 pb-16 bg-gray-50 dark:bg-gray-900 w-full relative max-w-6xl mx-auto">
+            <main className="flex flex-col items-center px-8 pb-16 bg-gray-100 dark:bg-gray-900 w-full relative max-w-4xl mx-auto">
                 {children}
             </main >
         </div >
