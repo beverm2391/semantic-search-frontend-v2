@@ -61,12 +61,10 @@ export default function Index(props) {
     } catch (error) {
       // handle cancel
       if (axios.isCancel(error)) {
-        setResponseData({ 'response': 'Request cancelled' });
         return;
       } else {
         // handle error
         console.log(error);
-        setResponseData({ 'response': 'Something went wrong :(' });
       }
     } finally {
       // reset loading and timer
