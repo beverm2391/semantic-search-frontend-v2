@@ -64,7 +64,7 @@ a {
 .main-container {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 3rem;
   margin: 0 auto;
   justify-content: center;
   width: 100%;
@@ -105,7 +105,10 @@ a {
 }
 
 .buttons-container {
-  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 .output-container {
@@ -141,23 +144,13 @@ a {
   overflow-wrap: break-word;
 }
 
-/* ! ACCORDIAN */
+/* ! ACCORDIAN ------------------------------------ */
 /* reset */
-
-.AccordianWrapper button, .AccordianWrapper h3 {
-    all: unset;
-    --mauve6 : #f5f5f7;
-    --mauve2 : #f0f0f2;
-    --mauve11 : #8c8c8c;
-    --mauve12 : #e0e0e0;
-    --violet11 : #3d3d3d;
-    --blackA4 : rgba(0, 0, 0, 0.04);
-}
 
 .AccordionRoot {
     border-radius: 6px;
     width: 100%;
-    background-color: var(--mauve6);
+    @apply bg-white dark:bg-gray-800;
     box-shadow: 0 2px 10px var(--blackA4);
 }
 
@@ -211,7 +204,7 @@ a {
     overflow: hidden;
     font-size: 15px;
     color: var(--mauve11);
-    background-color: var(--mauve2);
+    @apply bg-gray-100 rounded-lg;
 }
 
 .AccordionContent[data-state='open'] {
@@ -253,4 +246,180 @@ a {
     to {
         height: 0;
     }
+}
+
+/* ! PROFRESS BAR --------------------------------------- */
+
+.ProgressRoot {
+  --blackA9: rgba(0, 0, 0, 0.09);
+  position: relative;
+  overflow: hidden;
+  background: var(--blackA9);
+  border-radius: 99999px;
+  width: 100%;
+  height: 25px;
+
+  /* Fix overflow clipping in Safari */
+  /* https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
+  transform: translateZ(0);
+}
+
+.ProgressIndicator {
+  background-color: theme('colors.purple.500');
+  width: 100%;
+  height: 100%;
+  transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ! TOGGLE GROUP -------------------- */
+
+/* .ToggleGroupWrapper button {
+  all: unset;
+} */
+.ToggleGroup {
+  display: inline-flex;
+  background-color: theme('colors.gray.100');
+  border: 1.5px solid theme('colors.gray.200');
+  /* box-shadow: 0 2px 10px theme('colors.gray.800'); */
+  border-radius: 10px;
+}
+
+.ToggleGroupItem {
+  background-color: white;
+  color: theme('colors.gray.600');
+  height: 35px;
+  width: 120px;
+  display: flex;
+  font-size: 15px;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1px;
+  @apply font-medium
+}
+
+.ToggleGroupItem:first-child {
+  margin-left: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.ToggleGroupItem:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.ToggleGroupItem:hover {
+  background-color: theme('colors.gray.100');
+}
+.ToggleGroupItem[data-state='on'] {
+  background-color: theme('colors.purple.500');
+  color: theme('colors.white');
+}
+.ToggleGroupItem:focus {
+  position: relative;
+  /* box-shadow: 0 0 0 2px black; */
+}
+
+/* !SELECT ------------------------------------ */
+
+
+/* reset */
+/* button {
+  all: unset;
+} */
+
+.SelectTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: 4px; */
+  padding: 0 15px;
+  font-size: 13px;
+  line-height: 1;
+  height: 42px;
+  gap: 5px;
+  color: theme('colors.gray.600');
+  width: 100%;
+  @apply mb-4 bg-gray-100 rounded-lg
+}
+.SelectTrigger:focus {
+  /* box-shadow: 0 0 0 2px black; */
+}
+.SelectTrigger[data-placeholder] {
+  color: var(--violet9);
+}
+
+.SelectIcon {
+  color: Var(--violet11);
+}
+
+.SelectContent {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  width: 100%;
+}
+
+.SelectViewport {
+  padding: 5px;
+}
+
+.SelectItem {
+  font-size: 13px;
+  line-height: 1;
+  color: theme('colors.purple.500');
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 35px 0 25px;
+  position: relative;
+  user-select: none;
+  width: 280px;
+}
+.SelectItem:hover {
+  background-color: theme('colors.gray.100');
+  outline: none;
+  cursor: pointer;
+}
+.SelectItem[data-disabled] {
+  color: var(--mauve8);
+  pointer-events: none;
+}
+.selectItem[data-highlighted] {
+  background-color: theme('colors.purple.500');
+  color: theme('colors.white');
+  outline: none;
+}
+
+.SelectLabel {
+  padding: 0 25px;
+  font-size: 12px;
+  line-height: 25px;
+  color: var(--mauve11);
+}
+
+.SelectSeparator {
+  height: 1px;
+  background-color: var(--violet6);
+  margin: 5px;
+}
+
+.SelectItemIndicator {
+  position: absolute;
+  left: 0;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SelectScrollButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  background-color: white;
+  color: var(--violet11);
+  cursor: default;
 }
