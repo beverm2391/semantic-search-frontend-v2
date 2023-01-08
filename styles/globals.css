@@ -92,6 +92,8 @@ a {
 }
 
 .col1 {
+  /* leave room for focus ring on query input */
+  padding-top: 2px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -101,6 +103,8 @@ a {
 }
 
 .col2 {
+  /* leave room for focus ring on query input */
+  padding-top: 2px;
   display: flex;
   flex-direction: column;
   width: 18rem;
@@ -165,6 +169,13 @@ a {
   overflow-wrap: break-word;
 }
 
+/* ! TEXT INPUTS */
+
+input:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px theme('colors.purple.500');
+}
+
 textarea {
   box-shadow: 0 0 0 2px theme('colors.gray.300');
 }
@@ -180,7 +191,7 @@ textarea:focus {
     border-radius: 6px;
     width: 100%;
     @apply bg-white dark:bg-gray-800;
-    box-shadow: 0 2px 10px var(--blackA4);
+    /* box-shadow: 0 2px 10px var(--blackA4); */
 }
 
 .AccordionItem {
@@ -220,20 +231,19 @@ textarea:focus {
     justify-content: space-between;
     font-size: 15px;
     line-height: 1;
-    color: var(--violet11);
     box-shadow: 0 1px 0 var(--mauve6);
-    background-color: white;
+    @apply bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300
 }
 
 .AccordionTrigger:hover {
-    background-color: var(--mauve2);
+  @apply bg-gray-100 dark:bg-gray-700 rounded-lg;
 }
 
 .AccordionContent {
     overflow: hidden;
     font-size: 15px;
     color: var(--mauve11);
-    @apply bg-gray-100 rounded-lg;
+    @apply bg-gray-100 rounded-lg dark:bg-gray-700;
 }
 
 .AccordionContent[data-state='open'] {
@@ -307,12 +317,10 @@ textarea:focus {
 } */
 .ToggleGroup {
   display: inline-flex;
-  @apply rounded-lg bg-gray-100 border-gray-100 border-2;
+  @apply rounded-lg bg-gray-100 border-gray-100 border-2 dark:bg-gray-800 dark:border-gray-700;
 }
 
 .ToggleGroupItem {
-  background-color: white;
-  color: theme('colors.gray.600');
   height: 35px;
   width: 120px;
   display: flex;
@@ -321,20 +329,20 @@ textarea:focus {
   align-items: center;
   justify-content: center;
   margin-left: 1px;
-  @apply font-medium
+  @apply font-medium bg-white text-gray-600 dark:bg-gray-900 dark:text-gray-400
 }
 
 .ToggleGroupItem:first-child {
-  @apply rounded-l-lg ml-0
+  @apply rounded-l-[6px] ml-0
 }
 .ToggleGroupItem:last-child {
-  @apply rounded-r-lg mr-0
+  @apply rounded-r-[6px] mr-0
 }
 .ToggleGroupItem:hover {
-  @apply bg-gray-100
+  @apply bg-gray-100 dark:bg-gray-700
 }
 .ToggleGroupItem[data-state='on'] {
-  @apply bg-purple-500 text-white
+  @apply bg-purple-500 text-white dark:bg-purple-700
 }
 .ToggleGroupItem:focus {
   position: relative;
@@ -355,14 +363,14 @@ textarea:focus {
   justify-content: center;
   gap: 5px;
   width: 100%;
-  @apply mb-4 bg-gray-50 rounded-lg p-3 text-gray-600;
-  box-shadow: 0 0 0 2px theme('colors.gray.300');
+  @apply mb-4 bg-gray-50 rounded-lg p-3 text-gray-600 dark:text-gray-200 dark:bg-gray-800 dark:border-gray-600 border-gray-100 border-2
 }
+
 .SelectTrigger:hover {
-  @apply bg-gray-200;
+  @apply bg-gray-200 dark:bg-gray-700;
 }
 .SelectTrigger, .SelectTrigger[data-placeholder] {
-  @apply font-medium text-gray-800
+  @apply text-gray-800 dark:text-gray-200
 }
 
 .SelectTrigger[data-state='open'] {
@@ -375,10 +383,9 @@ textarea:focus {
 
 .SelectContent {
   overflow: hidden;
-  background-color: white;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   width: 100%;
-  @apply rounded-xl p-1;
+  @apply rounded-xl p-1 bg-white dark:bg-gray-900 dark:border-2 dark:border-gray-700;
 }
 
 .SelectViewport {
@@ -386,15 +393,16 @@ textarea:focus {
 }
 
 .SelectItem {
-  @apply rounded-xl p-3 text-purple-500;
+  @apply rounded-lg p-3 text-purple-500 font-medium pl-6;
   display: flex;
   align-items: center;
   position: relative;
   user-select: none;
   width: 280px;
+  height: 40px;
 }
 .SelectItem:hover {
-  background-color: theme('colors.gray.100');
+  @apply bg-gray-100 dark:bg-gray-700;
   outline: none;
   cursor: pointer;
 }
@@ -409,7 +417,7 @@ textarea:focus {
 }
 
 .SelectLabel {
-  @apply py-2 px-4 font-bold;
+  @apply py-2 px-4 font-bold text-lg flex flex-row items-center dark:text-gray-200; 
 }
 
 .SelectSeparator {

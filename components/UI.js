@@ -54,7 +54,7 @@ export default function UI(props) {
                     /> */}
                     <input
                         type='text'
-                        className='w-full p-4 rounded-xl bg-white dark:bg-gray-800'
+                        className='w-full p-4 rounded-xl bg-white dark:bg-gray-800 dark:text-gray-200'
                         placeholder="query"
                         value={query}
                         onChange={e => setQuery(e.target.value)}
@@ -79,44 +79,46 @@ export default function UI(props) {
                         Cancel
                     </button>
                 </div>
-                <div className='output-container'>
+                <div className='output-container dark:bg-gray-800 dark:text-gray-200'>
                     {loading ?
                         <p>Loading... {elapsedTime.toFixed(2)}s</p> :
-                        responseData['response'] ?
+                        responseData ?
                             <p className={`${flash}`}>{responseData['response']}</p> :
-                            <p>reponse will show up here</p>
+                            <p className='text-gray-400 dark:text-gray-600'>reponse will show up here</p>
                     }
                 </div>
             </div>
             <div className='col2 text-gray-600 dark:text-gray-400'>
                 <div className='settings-container flex flex-col'>
-                    <div className='flex justify-center items-center py-[10px] px-2 rounded-lg mb-4'>
+                    <div className='flex justify-center items-center py-[10px] px-2 rounded-lg'>
                         <ToggleLength
                             selectedLength={selectedLength}
                             setSelectedLength={setSelectedLength}
                         />
                     </div>
-                    <div className='flex justify-center items-center bg-gray-100 py-[10px] px-2 rounded-lg'>
+                    {/* <div className='flex justify-center items-center bg-gray-100 py-[10px] px-2 rounded-lg'>
                         <p>Status Component</p>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='stats-container'>
                     <Select docs={docs} setSelectedDoc={setSelectedDoc} />
 
-                    <h3 className='font-bold text-gray-800 dark:text-gray-200'>Pages Accessed:</h3>
-                    <p className={`${flash}`}>{responseData['context_pages'] &&
+                    <h3 className='font-medium text-gray-800 dark:text-gray-300'>Pages Accessed:</h3>
+                    <p className={`${flash} mb-1`}>{responseData ?
                         responseData['context_pages'].map((page, index) => {
                             if (index === responseData['context_pages'].length - 1) {
                                 return <span key={index}>{page}</span>
                             } else {
                                 return <span key={index}>{page}, </span>
-                            }
-                        })}</p>
+                            }}) : 'N/A'
+                        }</p>
 
-                    <h3 className='font-bold text-gray-800 dark:text-gray-200'>Response Time:</h3>
+                    <h3 className='font-medium text-gray-800 dark:text-gray-300'>Response Time:</h3>
                     <p className={`${flash}`}>
-                        {responseData['time'] &&
-                            <p>{responseData['time']}s</p>}
+                        {responseData ?
+                            <p>{responseData['time']}s</p> :
+                            'N/A'
+                        }
                     </p>
                 </div>
                 <div className='instructions-container'>

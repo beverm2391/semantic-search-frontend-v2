@@ -1,10 +1,7 @@
 import React from 'react';
 import * as Select from '@radix-ui/react-select';
 import classnames from 'classnames';
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import axios from 'axios';
-
-const testdata = ["Book", "Document", "Image", "Video", "Audio", "Other"];
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon, FileIcon } from '@radix-ui/react-icons';
 
 const SelectDemo = (props) => (
     <Select.Root
@@ -27,7 +24,7 @@ const SelectDemo = (props) => (
                 </Select.ScrollUpButton>
                 <Select.Viewport className="SelectViewport">
                     <Select.Group>
-                        <Select.Label className="SelectLabel">Encoded Documents</Select.Label>
+                        <Select.Label className="SelectLabel">Encoded Documents&nbsp;&nbsp;<FileIcon className='text-gray-800 dark:text-gray-400'/></Select.Label>
                         {props.docs && props.docs.map((item) => (
                             <SelectItem key={item} value={item} className="SelectItem">
                                 {item.length > 20 ? `${item.substring(0, 20)}...` : item}
