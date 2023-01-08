@@ -20,6 +20,8 @@ const ProgressDemo = (props) => {
     const ratio = props.elapsedTime / estDuration;
     console.log(ratio)
 
+    getElement
+
     return (
         <Progress.Root className="ProgressRoot">
             <Progress.Indicator

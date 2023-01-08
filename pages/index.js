@@ -2,6 +2,7 @@ import Container from '../components/Container'
 import UI from '../components/UI'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import AlertDialog from '../components/AlertDialog'
 
 export default function Index(props) {
   // document list
@@ -17,17 +18,22 @@ export default function Index(props) {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
+  // ui states
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alert, setAlert] = useState('');
 
   // make a request to the API
   async function getResponse() {
 
     // handle errors
     if (selectedDoc === null) {
-      alert('Please select a document');
+      setAlert("Please select a document. Can't answer your questions without a document.");
+      setAlertOpen(true);
       return;
     }
     if (query === '') {
-      alert('Please enter a query');
+      setAlert("You have to enter a query. I'm not a mind reader.");
+      setAlertOpen(true);
       return;
     }
 
@@ -111,6 +117,11 @@ export default function Index(props) {
 
   return (
     <Container>
+      <AlertDialog
+        alertOpen={alertOpen}
+        setAlertOpen={setAlertOpen}
+        alert={alert}
+      />
       <UI {...pageProps} />
     </Container>
   )

@@ -1,6 +1,5 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import AccordionDemo from './Accordion'
-import ProgressBar from './ProgressBar'
 import ToggleLength from './ToggleGroup'
 import Select from './Select'
 
