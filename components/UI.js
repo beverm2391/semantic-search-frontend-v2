@@ -1,5 +1,6 @@
 import Button from './Button'
 import { useState } from 'react'
+import AccordionDemo from './Accordion'
 
 export default function UI() {
     const [query, setQuery] = useState('')
@@ -17,10 +18,10 @@ export default function UI() {
                     />
                 </div>
                 <div className='buttons-container'>
-                    <Button className='bg-blue-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-blue-400 mr-4'>
+                    <Button className='bg-blue-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-blue-400 mr-4 dark:bg-blue-800 dark:hover:bg-blue-700'>
                         Generate
                     </Button>
-                    <Button className='bg-red-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-red-400 mr-4'>
+                    <Button className='bg-red-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-red-400 mr-4 dark:bg-red-600 dark:hover:bg-red-500'>
                         Cancel
                     </Button>
                 </div>
@@ -47,7 +48,7 @@ export default function UI() {
                     <p>0.2s</p>
                 </div>
                 <div className='instructions-container'>
-                    <p>Accordian goes here</p>
+                    <AccordionDemo/>
                 </div>
             </div>
         </div>

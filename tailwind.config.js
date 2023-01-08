@@ -7,12 +7,15 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
-    fontFamily: {
-      primary: ['var(--inter-font)', ...fontFamily.sans],
-      serif: ['var(--inter-font)', ...fontFamily.serif],
-      ['merry']: ['Merriweather', ...fontFamily.serif],
+    extend: {
+      colors: {
+      },
     },
-  },
-  plugins: [require("daisyui")],
-}
+      fontFamily: {
+        primary: ['var(--inter-font)', ...fontFamily.sans],
+        serif: ['var(--inter-font)', ...fontFamily.serif],
+        ['merry']: ['Merriweather', ...fontFamily.serif],
+      },
+    },
+    plugins: [require("daisyui")],
+  }
