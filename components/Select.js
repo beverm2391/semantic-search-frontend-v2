@@ -2,11 +2,20 @@ import React from 'react';
 import * as Select from '@radix-ui/react-select';
 import classnames from 'classnames';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import axios from 'axios';
 
-const SelectDemo = () => (
-    <Select.Root>
-        <Select.Trigger className="SelectTrigger" aria-label="Food">
-            <Select.Value placeholder="Select a document..." />
+const testdata = ["Book", "Document", "Image", "Video", "Audio", "Other"];
+
+const SelectDemo = (props) => (
+    <Select.Root
+        value={props.selectedDoc}
+        onValueChange={v => props.setSelectedDoc(v)}
+    >
+        <Select.Trigger className="SelectTrigger" aria-label="documents">
+            <Select.Value
+                placeholder="Select a document..."
+                className='selectValue'
+            />
             <Select.Icon className="SelectIcon">
                 <ChevronDownIcon />
             </Select.Icon>
@@ -18,30 +27,12 @@ const SelectDemo = () => (
                 </Select.ScrollUpButton>
                 <Select.Viewport className="SelectViewport">
                     <Select.Group>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                    </Select.Group>
-
-                    <Select.Separator className="SelectSeparator" />
-
-                    <Select.Group>
-                        <SelectItem value="aubergine">Aubergine</SelectItem>
-                        <SelectItem value="broccoli">Broccoli</SelectItem>
-                        <SelectItem value="courgette">Courgette</SelectItem>
-                        <SelectItem value="leek">leek</SelectItem>
-                    </Select.Group>
-
-                    <Select.Separator className="SelectSeparator" />
-
-                    <Select.Group>
-                        {/* <Select.Label className="SelectLabel">Meat</Select.Label> */}
-                        <SelectItem value="beef">Beef</SelectItem>
-                        <SelectItem value="chicken">Chicken</SelectItem>
-                        <SelectItem value="lamb">Lamb</SelectItem>
-                        <SelectItem value="pork">Pork</SelectItem>
+                        <Select.Label className="SelectLabel">Encoded Documents</Select.Label>
+                        {props.docs && props.docs.map((item) => (
+                            <SelectItem key={item} value={item} className="SelectItem">
+                                {item.length > 20 ? `${item.substring(0, 20)}...` : item}
+                            </SelectItem>
+                        ))}
                     </Select.Group>
                 </Select.Viewport>
                 <Select.ScrollDownButton className="SelectScrollButton">
@@ -63,5 +54,5 @@ const SelectItem = React.forwardRef(({ children, className, ...props }, forwarde
     );
 });
 
-export default SelectDemo;
 SelectItem.displayName = 'SelectItem';
+export default SelectDemo;

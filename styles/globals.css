@@ -61,6 +61,27 @@ a {
   }
 }
 
+/* ! FLASH -------------------- */
+.flash {
+  animation: flash 1s ease-in-out;
+  animation-iteration-count: 1;
+  border-radius: 0.25rem;
+}
+
+@keyframes flash {
+  0% {
+    background-color: inherit;
+  }
+  1% {
+    @apply bg-purple-400 text-white;
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
+/* ! LAYOUT ------------------------ */
+
 .main-container {
   display: flex;
   flex-direction: row;
@@ -142,6 +163,14 @@ a {
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+}
+
+textarea {
+  box-shadow: 0 0 0 2px theme('colors.gray.300');
+}
+
+textarea:focus {
+  box-shadow: 0 0 0 2px theme('colors.purple.500');
 }
 
 /* ! ACCORDIAN ------------------------------------ */
@@ -278,10 +307,7 @@ a {
 } */
 .ToggleGroup {
   display: inline-flex;
-  background-color: theme('colors.gray.100');
-  border: 1.5px solid theme('colors.gray.200');
-  /* box-shadow: 0 2px 10px theme('colors.gray.800'); */
-  border-radius: 10px;
+  @apply rounded-lg bg-gray-100 border-gray-100 border-2;
 }
 
 .ToggleGroupItem {
@@ -299,20 +325,16 @@ a {
 }
 
 .ToggleGroupItem:first-child {
-  margin-left: 0;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  @apply rounded-l-lg ml-0
 }
 .ToggleGroupItem:last-child {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  @apply rounded-r-lg mr-0
 }
 .ToggleGroupItem:hover {
-  background-color: theme('colors.gray.100');
+  @apply bg-gray-100
 }
 .ToggleGroupItem[data-state='on'] {
-  background-color: theme('colors.purple.500');
-  color: theme('colors.white');
+  @apply bg-purple-500 text-white
 }
 .ToggleGroupItem:focus {
   position: relative;
@@ -331,33 +353,32 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* border-radius: 4px; */
-  padding: 0 15px;
-  font-size: 13px;
-  line-height: 1;
-  height: 42px;
   gap: 5px;
-  color: theme('colors.gray.600');
   width: 100%;
-  @apply mb-4 bg-gray-100 rounded-lg
+  @apply mb-4 bg-gray-50 rounded-lg p-3 text-gray-600;
+  box-shadow: 0 0 0 2px theme('colors.gray.300');
 }
-.SelectTrigger:focus {
-  /* box-shadow: 0 0 0 2px black; */
+.SelectTrigger:hover {
+  @apply bg-gray-200;
 }
-.SelectTrigger[data-placeholder] {
-  color: var(--violet9);
+.SelectTrigger, .SelectTrigger[data-placeholder] {
+  @apply font-medium text-gray-800
+}
+
+.SelectTrigger[data-state='open'] {
+  box-shadow: 0 0 0 2px theme('colors.purple.500');
 }
 
 .SelectIcon {
-  color: Var(--violet11);
+  color: theme('colors.gray.600');
 }
 
 .SelectContent {
   overflow: hidden;
   background-color: white;
-  border-radius: 6px;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   width: 100%;
+  @apply rounded-xl p-1;
 }
 
 .SelectViewport {
@@ -365,14 +386,9 @@ a {
 }
 
 .SelectItem {
-  font-size: 13px;
-  line-height: 1;
-  color: theme('colors.purple.500');
-  border-radius: 3px;
+  @apply rounded-xl p-3 text-purple-500;
   display: flex;
   align-items: center;
-  height: 25px;
-  padding: 0 35px 0 25px;
   position: relative;
   user-select: none;
   width: 280px;
@@ -393,10 +409,7 @@ a {
 }
 
 .SelectLabel {
-  padding: 0 25px;
-  font-size: 12px;
-  line-height: 25px;
-  color: var(--mauve11);
+  @apply py-2 px-4 font-bold;
 }
 
 .SelectSeparator {
