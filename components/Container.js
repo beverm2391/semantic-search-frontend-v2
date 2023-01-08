@@ -86,7 +86,7 @@ export default function Container(props) {
                     </button>
                 </nav>
             </div>
-            <main className="flex flex-col items-center px-8 pb-16 bg-gray-100 dark:bg-gray-900 w-full relative max-w-4xl mx-auto">
+            <main className="flex flex-col items-center px-8 pb-16 bg-gray-100 dark:bg-gray-900 w-full">
                 {children}
             </main >
         </div >

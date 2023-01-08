@@ -14,5 +14,5 @@ module.exports = {
       ['merry']: ['Merriweather', ...fontFamily.serif],
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
