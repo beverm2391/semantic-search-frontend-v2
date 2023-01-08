@@ -17,11 +17,11 @@ export default function UI() {
                     />
                 </div>
                 <div className='buttons-container'>
-                    <Button className='bg-gray-600 text-white dark:bg-gray-400 dark:text-black font-bold py-2 px-8 rounded-xl hover:scale-[1.01] hover:bg-gray-500 mr-4'>
-                        Think
+                    <Button className='bg-blue-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-blue-400 mr-4'>
+                        Generate
                     </Button>
-                    <Button className='bg-gray-600 text-white dark:bg-gray-400 dark:text-black font-bold py-2 px-8 rounded-xl hover:scale-[1.01] hover:bg-gray-500 mr-4'>
-                        Stop
+                    <Button className='bg-red-500 text-white font-medium py-[10px] px-[20px] rounded-xl hover:scale-[1.01] hover:bg-red-400 mr-4'>
+                        Cancel
                     </Button>
                 </div>
                 <div className='output-container'>
@@ -29,9 +29,13 @@ export default function UI() {
                 </div>
             </div>
             <div className='col2 text-gray-600 dark:text-gray-400'>
-                <div className='settings-container'>
-                    <p>Tab/toggle compoenent</p>
-                    <p>Status Component</p>
+                <div className='settings-container flex flex-col'>
+                    <div className='flex justify-center items-center bg-gray-100 py-[10px] px-2 rounded-lg mb-4'>
+                        <p>Toggle length</p>
+                    </div>
+                    <div className='flex justify-center items-center bg-gray-100 py-[10px] px-2 rounded-lg'>
+                        <p>Status Component</p>
+                    </div>
                 </div>
                 <div className='stats-container'>
                     <h3 className='font-bold text-gray-800 dark:text-gray-200'>
@@ -41,6 +45,9 @@ export default function UI() {
                     <p>34, 12 ,12</p>
                     <h3 className='font-bold text-gray-800 dark:text-gray-200'>Response Time:</h3>
                     <p>0.2s</p>
+                </div>
+                <div className='instructions-container'>
+                    <p>Accordian goes here</p>
                 </div>
             </div>
         </div>

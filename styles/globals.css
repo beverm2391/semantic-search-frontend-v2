@@ -76,7 +76,7 @@ a {
   gap: 1rem;
   height: 100%;
   width: 100%;
-  max-width: 38rem;
+  max-width: 32rem;
 }
 
 .col2 {
@@ -93,7 +93,7 @@ a {
   }
 }
 
-.input-container, .output-container, .settings-container, .stats-container {
+.input-container, .output-container, .settings-container, .stats-container, .instructions-container {
   @apply bg-white dark:bg-gray-800 rounded-xl;
 }
 
@@ -126,6 +126,14 @@ a {
 }
 
 .stats-container {
+  @apply p-4;
+  width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.instructions-container {
   @apply p-4;
   width: 100%;
   overflow: hidden;
