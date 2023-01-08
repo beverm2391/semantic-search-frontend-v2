@@ -6,7 +6,8 @@ import AlertDialog from '../components/AlertDialog'
 
 export default function Index(props) {
   // document list
-  const docs = props.data['docs'];
+  const docs = (props.data && props.data['docs']) ? props.data : ["Failed to load docs..."];
+
   // data states
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [selectedLength, setSelectedLength] = useState('longer');
