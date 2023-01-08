@@ -8,7 +8,7 @@ const SelectDemo = (props) => (
         value={props.selectedDoc}
         onValueChange={v => props.setSelectedDoc(v)}
     >
-        <Select.Trigger className="SelectTrigger" aria-label="documents">
+        <Select.Trigger className="SelectTrigger font-merry" aria-label="documents">
             <Select.Value
                 placeholder="Select a document..."
                 className='selectValue'
@@ -26,7 +26,7 @@ const SelectDemo = (props) => (
                     <Select.Group>
                         <Select.Label className="SelectLabel">Encoded Documents&nbsp;&nbsp;<FileIcon className='text-gray-800 dark:text-gray-400'/></Select.Label>
                         {props.docs && props.docs.map((item) => (
-                            <SelectItem key={item} value={item} className="SelectItem">
+                            <SelectItem key={item} value={item} className="SelectItem font-merry">
                                 {item.length > 20 ? `${item.substring(0, 20)}...` : item}
                             </SelectItem>
                         ))}
