@@ -6,11 +6,14 @@ import AlertDialog from '../components/AlertDialog'
 
 export default function Index(props) {
   // document list
-  const docs = (props.data && props.data['docs']) ? props.data : ["Failed to load docs..."];
+  // const docs = (props.data && props.data['docs']) ? props.data : ["Failed to load docs..."];
+
+  const docs = props && props.data && props.data['docs'] ? props.data['docs'] : ['Failed to load docs...'];
 
   // data states
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [selectedLength, setSelectedLength] = useState('longer');
+  const [selectedTemp, setSelectedTemp] = useState('thoughtful');
   const [query, setQuery] = useState('');
   const [responseData, setResponseData] = useState(null);
   // loading states
@@ -45,13 +48,17 @@ export default function Index(props) {
     const source = axios.CancelToken.source();
     setCancelToken(source);
 
+    // based on selector
+    const max_tokens = selectedLength === 'longer' ? 1000 : 80;
+    const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
+
     // prepare request
     const endpoint = `${props.baseUrl}/semantic-qa`
-    console.log(endpoint)
     const req = {
       "doc_name": selectedDoc,
       "query": query,
-      //! "model": selectedLength === 'longer' ? "text-davinci-003" : "text-davinci-002"
+      "max_tokens": max_tokens,
+      "preset": preset,
     }
 
     // make request
@@ -77,7 +84,7 @@ export default function Index(props) {
       setTimeout(() => {
         setElapsedTime(0)
       }, 1000)
-      
+
       // reset cancel token
       setCancelToken(null);
     }

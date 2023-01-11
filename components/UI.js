@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import AccordionDemo from './Accordion'
-import ToggleLength from './ToggleGroup'
+import ToggleLength from './ToggleLength'
+import ToggleTemp from './ToggleTemp'
 import Select from './Select'
 
 export default function UI(props) {
@@ -16,7 +17,7 @@ export default function UI(props) {
         loading,
         flash,
         elapsedTime,
-        cancelRequest
+        cancelRequest,
     } = props;
 
     // make a request to the API via the index page
@@ -53,7 +54,7 @@ export default function UI(props) {
                     /> */}
                     <input
                         type='text'
-                        className='w-full p-4 rounded-xl bg-white dark:bg-gray-800 dark:text-gray-200'
+                        className='w-full p-4 rounded-xl bg-white dark:bg-gray-800 dark:text-gray-200 border-2 border-gray-300 dark:border-gray-700'
                         placeholder="query"
                         value={query}
                         onChange={e => setQuery(e.target.value)}
@@ -61,7 +62,7 @@ export default function UI(props) {
                 </div>
                 <div className='buttons-container'>
                     <button
-                        className={'bg-purple-500 text-white font-medium py-3 px-4 w-48 rounded-xl hover:scale-[1.01] hover:bg-purple-400 mr-3 dark:bg-purple-800 dark:hover:bg-purple-700'}
+                        className={'bg-purple-500 text-white font-medium py-3 px-4 w-36 rounded-xl hover:scale-[1.01] hover:bg-purple-400 mr-3 dark:bg-purple-800 dark:hover:bg-purple-700'}
                         onClick={() => handleClick()}
                         disabled={loading}
                     >
@@ -70,8 +71,8 @@ export default function UI(props) {
                     <button
                         className={
                             loading ?
-                            'bg-red-500 text-white font-medium py-3 px-4 w-48 rounded-xl hover:scale-[1.01] hover:bg-red-400 mr-4 dark:bg-red-600 dark:hover:bg-red-500' :
-                            'bg-gray-300 text-white font-medium py-3 px-4 w-48 rounded-xl mr-4 dark:bg-gray-600'}
+                            'bg-red-500 text-white font-medium py-3 px-4 w-36 rounded-xl hover:scale-[1.01] hover:bg-red-400 mr-4 dark:bg-red-600 dark:hover:bg-red-500' :
+                            'bg-gray-300 text-gray-500 font-medium py-3 px-4 w-36 rounded-xl mr-4 dark:bg-gray-600'}
                         disabled={!loading}
                         onClick={cancelRequest}
                     >
@@ -83,21 +84,18 @@ export default function UI(props) {
                         <p>Loading... {elapsedTime.toFixed(2)}s</p> :
                         responseData ?
                             <p className={`${flash}`}>{responseData['response']}</p> :
-                            <p className='text-gray-400 dark:text-gray-600'>reponse will show up here</p>
+                            <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
                     }
                 </div>
             </div>
             <div className='col2 text-gray-600 dark:text-gray-400'>
                 <div className='settings-container flex flex-col'>
-                    <div className='flex justify-center items-center py-[10px] px-2 rounded-lg'>
+                    <div className='flex justify-center items-center py-2 px-2 rounded-lg'>
                         <ToggleLength
                             selectedLength={selectedLength}
                             setSelectedLength={setSelectedLength}
                         />
                     </div>
-                    {/* <div className='flex justify-center items-center bg-gray-100 py-[10px] px-2 rounded-lg'>
-                        <p>Status Component</p>
-                    </div> */}
                 </div>
                 <div className='stats-container'>
                     <Select docs={docs} setSelectedDoc={setSelectedDoc} />
