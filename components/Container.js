@@ -15,8 +15,8 @@ export default function Container(props) {
     const { children, ...customMeta } = props;
     const router = useRouter();
     const meta = {
-        title: 'Ben Everman – Developer, Social Worker, MBA student.',
-        description: `Full-Time Grad Student (MSW/MBA), I like to build products with ML/AI, I'm interested in developing new technology in Mental Healthcare.`,
+        title: 'Semantics.cloud - Semantic QA',
+        description: `Use artificial intelligence to query and summarize large documents with natural language.`,
         image: 'https://beneverman.com/static/images/banner.png',
         type: 'website',
         ...customMeta
