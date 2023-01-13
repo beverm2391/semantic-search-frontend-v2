@@ -3,12 +3,14 @@ import UI from '../components/UI'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
+import { useRouter } from 'next/router';
 
 export default function Index(props) {
   // document list
-  // const docs = (props.data && props.data['docs']) ? props.data : ["Failed to load docs..."];
-
   const docs = props && props.data && props.data['docs'] ? props.data['docs'] : ['Failed to load docs...'];
+
+  // init router
+  const router = useRouter();
 
   // data states
   const [selectedDoc, setSelectedDoc] = useState(null);
@@ -105,6 +107,58 @@ export default function Index(props) {
     return () => clearInterval(interval);
   }, [isRunning]);
 
+  //! file upload API call -------------------------------------
+  const [docForUpload, setDocForUpload] = useState(null);
+
+  async function uploadDoc() {
+
+    if (docForUpload === null) {
+      setAlert("Please select a document to embed.");
+      setAlertOpen(true);
+      return;
+    }
+
+    setLoading(true)
+    setIsRunning(true)
+
+    const source = axios.CancelToken.source();
+    setCancelToken(source);
+
+    const endpoint = `${props.baseUrl}/docs/embed`;
+
+    const tempFormData = new FormData();
+    tempFormData.append('file', docForUpload);
+
+    const res = await axios.post(endpoint, tempFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then (res => {
+        setResponseData(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false)
+        setIsRunning(false)
+        setFlash('flash')
+
+        // reset timer after 1 second
+        setTimeout(() => {
+          setElapsedTime(0)
+        }
+        , 1000)
+      })
+
+      setTimeout(() => {
+        axios.get(`${props.baseUrl}/docs/sync`)
+      }, 1000)
+
+      // force refresh the page to trigger getServerSideProps and update the docs list
+      router.replace(router.asPath)
+  }
+
   // pass props to UI
   const pageProps = {
     docs,
@@ -119,6 +173,9 @@ export default function Index(props) {
     flash,
     elapsedTime,
     cancelRequest,
+    docForUpload,
+    setDocForUpload,
+    uploadDoc,
   }
 
   return (

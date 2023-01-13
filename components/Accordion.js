@@ -5,7 +5,7 @@ import { ChevronDownIcon } from '@radix-ui/react-icons';
 
 const AccordionDemo = () => (
     <div className="AccordionWrapper">
-        <Accordion.Root className="AccordionRoot" type="single" defaultValue="item-1" collapsible>
+        <Accordion.Root className="AccordionRoot" type="single" collapsible>
             <Accordion.Item className="AccordionItem" value="item-1">
                 <AccordionTrigger>What is this thing?</AccordionTrigger>
                 <AccordionContent>It&apos;s a tool that lets you ineract with a document using natural language.</AccordionContent>
