@@ -21,6 +21,7 @@ export default function Index(props) {
   const [responseStream, setResponseStream] = useState([]);
   // loading states
   const [loading, setLoading] = useState(false);
+  const [loadingStream, setLoadingStream] = useState(false);
   const [flash, setFlash] = useState('')
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -177,6 +178,8 @@ export default function Index(props) {
 
     // reset response stream
     setResponseStream([]);
+    setLoading(true);
+    setLoadingStream(true);
 
     // set enpoint and message
     const endpoint = 'ws://127.0.0.1:8000/semantic-qa/ws'
@@ -200,8 +203,10 @@ export default function Index(props) {
       if (event.data.startsWith('{')) {
         const response_obj = JSON.parse(event.data)
         setResponseData(response_obj);
-        console.log(responseData)
+        setLoading(false);
+        // console.log(responseData)
       } else {
+        setLoadingStream(false);
         setResponseStream(prev => [...prev, event.data]);
       }
     }
@@ -225,7 +230,8 @@ export default function Index(props) {
     setDocForUpload,
     uploadDoc,
     getResponseStream,
-    responseStream
+    responseStream,
+    loadingStream,
   }
 
   return (

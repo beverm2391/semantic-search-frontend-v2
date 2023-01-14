@@ -21,7 +21,8 @@ export default function UI(props) {
         setDocForUpload,
         uploadDoc,
         getResponseStream,
-        responseStream
+        responseStream,
+        loadingStream,
     } = props;
 
     // make a request to the API via the index page
@@ -60,6 +61,7 @@ export default function UI(props) {
 
     // ! Unpack responseData --------------------------------------------------
     const context_pages = responseData && responseData['context_pages'] ? responseData['context_pages'] : null;
+    const response_time = responseData && responseData['time'] ? responseData['time'] : null;
 
     return (
         <div className='main-container'>
@@ -99,13 +101,24 @@ export default function UI(props) {
                     </button>
                 </div>
                 <div className='output-container dark:bg-gray-800 dark:text-gray-200'>
-                    {/* {loading ?
-                        <p>Loading... {elapsedTime.toFixed(2)}s</p> :
-                        responseData ?
-                            <p className={`${flash}`}>{responseData['response']}</p> :
+                    {loadingStream ?
+                        <p>Loading...</p> :
+                        responseStream ? responseStream.map((item, index) => {
+                            if (item === '\n' && index < 5) {
+                                return
+                            }
+                            else if (item === ' ') {
+                                return (
+                                    <span key={index}>{item}</span>
+                                )
+                            } else {
+                                return (
+                                    <span key={index} className='stream-flash'>{item}</span>
+                                )
+                            }}) : 
                             <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
-                    } */}
-                    <p>
+                    }
+                    {/* <p>
                         {responseStream && responseStream.map((item, index) => {
                             if (item === '\n' && index < 5) {
                                 return
@@ -120,7 +133,7 @@ export default function UI(props) {
                                 )
                             }
                         })}
-                    </p>
+                    </p> */}
                 </div>
             </div>
             <div className='col2 text-gray-600 dark:text-gray-400'>
@@ -147,8 +160,8 @@ export default function UI(props) {
 
                     <h3 className='font-medium text-gray-800 dark:text-gray-300'>Response Time:</h3>
                     <p className={`${flash}`}>
-                        {responseData ?
-                            `${responseData['time']}s` :
+                        {response_time ?
+                            `${response_time}s` :
                             'N/A'
                         }
                     </p>
