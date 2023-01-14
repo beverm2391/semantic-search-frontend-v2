@@ -148,7 +148,7 @@ export default function UI(props) {
                     <h3 className='font-medium text-gray-800 dark:text-gray-300'>Response Time:</h3>
                     <p className={`${flash}`}>
                         {responseData ?
-                            <p>{responseData['time']}s</p> :
+                            `${responseData['time']}s` :
                             'N/A'
                         }
                     </p>

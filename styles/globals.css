@@ -90,13 +90,15 @@ a {
     background-color: inherit;
   }
   1% {
-    @apply bg-blue-200 text-white;
+    @apply bg-blue-300 text-black dark:text-white;
+    opacity: 0.5;
   }
   95% {
-    @apply bg-blue-200 text-white;
+    @apply bg-blue-300 text-black dark:text-white;
   }
   100% {
     background-color: inherit;
+    opacity: 1;
   }
 }
 

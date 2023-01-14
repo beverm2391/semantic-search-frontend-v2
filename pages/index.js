@@ -163,13 +163,32 @@ export default function Index(props) {
 
   // ! WEBSOCKET -------------------------------------
   function getResponseStream() {
-    // reset response stream
-    setResponseStream([])
-    // set enpoint and message
-    const endpoint = 'ws://127.0.0.1:8000/test/ws'
-    const message = {
-      "text": query,
+    // handle errors
+    if (selectedDoc === null) {
+      setAlert("Please select a document. Can't answer your questions without a document.");
+      setAlertOpen(true);
+      return;
     }
+    if (query === '') {
+      setAlert("You have to enter a query. I'm not a mind reader.");
+      setAlertOpen(true);
+      return;
+    }
+
+    // reset response stream
+    setResponseStream([]);
+
+    // set enpoint and message
+    const endpoint = 'ws://127.0.0.1:8000/semantic-qa/ws'
+    const max_tokens = selectedLength === 'longer' ? 1000 : 80;
+    const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
+    const message = {
+      "doc_name": selectedDoc,
+      "query": query,
+      "max_tokens": max_tokens,
+      "preset": preset,
+    }
+    
     // open socket, send message, and listen for response
     const socket = new WebSocket(endpoint);
     socket.onopen = () => {
@@ -177,7 +196,14 @@ export default function Index(props) {
     };
     // handle response
     socket.onmessage = (event) => {
-      setResponseStream(prev => [...prev, event.data]);
+      // handle final object response, handle stream responses
+      if (event.data.startsWith('{')) {
+        const response_obj = JSON.parse(event.data)
+        setResponseData(response_obj);
+        console.log(responseData)
+      } else {
+        setResponseStream(prev => [...prev, event.data]);
+      }
     }
   }
 

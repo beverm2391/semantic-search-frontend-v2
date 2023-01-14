@@ -16,7 +16,7 @@ const AlertDialogDemo = (props) => (
                 </AlertDialog.Description>
                 <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
                     <AlertDialog.Cancel className="AlertDialogCancel" onClick={() => props.setAlertOpen(false)}>
-                        <button><Cross2Icon className="w-6 h-6 text-gray-800 dark:text-gray-200"/></button>
+                        <Cross2Icon className="w-6 h-6 text-gray-800 dark:text-gray-200"/>
                     </AlertDialog.Cancel>
                 </div>
             </AlertDialog.Content>
