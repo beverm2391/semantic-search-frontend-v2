@@ -20,12 +20,18 @@ export default function UI(props) {
         docForUpload,
         setDocForUpload,
         uploadDoc,
+        getResponseStream,
+        responseStream
     } = props;
 
     // make a request to the API via the index page
+    // const handleClick = useCallback(() => {
+    //     getResponse();
+    // }, [getResponse]);
+
     const handleClick = useCallback(() => {
-        getResponse();
-    }, [getResponse]);
+        getResponseStream();
+    }, [getResponseStream]);
 
     // responseData schema
     // {'time' : 0.123, 'tokens' : tokens, 'cost': 0.12, 'response': response, 'context_pages' : [page1, page2, page3]]}
@@ -93,12 +99,28 @@ export default function UI(props) {
                     </button>
                 </div>
                 <div className='output-container dark:bg-gray-800 dark:text-gray-200'>
-                    {loading ?
+                    {/* {loading ?
                         <p>Loading... {elapsedTime.toFixed(2)}s</p> :
                         responseData ?
                             <p className={`${flash}`}>{responseData['response']}</p> :
                             <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
-                    }
+                    } */}
+                    <p>
+                        {responseStream && responseStream.map((item, index) => {
+                            if (item === '\n' && index < 5) {
+                                return
+                            }
+                            else if (item === ' ') {
+                                return (
+                                    <span key={index}>{item}</span>
+                                )
+                            } else {
+                                return (
+                                    <span key={index} className='stream-flash'>{item}</span>
+                                )
+                            }
+                        })}
+                    </p>
                 </div>
             </div>
             <div className='col2 text-gray-600 dark:text-gray-400'>

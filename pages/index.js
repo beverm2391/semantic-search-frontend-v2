@@ -18,6 +18,7 @@ export default function Index(props) {
   const [selectedTemp, setSelectedTemp] = useState('thoughtful');
   const [query, setQuery] = useState('');
   const [responseData, setResponseData] = useState(null);
+  const [responseStream, setResponseStream] = useState([]);
   // loading states
   const [loading, setLoading] = useState(false);
   const [flash, setFlash] = useState('')
@@ -28,7 +29,8 @@ export default function Index(props) {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alert, setAlert] = useState('');
 
-  // make a request to the API
+
+  //! make a semantic QA request to the API -------------------------------------
   async function getResponse() {
 
     // handle errors
@@ -96,7 +98,7 @@ export default function Index(props) {
     cancelToken.cancel();
   };
 
-  // stopwatch
+  //! stopwatch -------------------------------------
   useEffect(() => {
     let interval = null;
     if (isRunning) {
@@ -107,7 +109,7 @@ export default function Index(props) {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  //! file upload API call -------------------------------------
+  //! Embed document API call -------------------------------------
   const [docForUpload, setDocForUpload] = useState(null);
 
   async function uploadDoc() {
@@ -133,9 +135,9 @@ export default function Index(props) {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then (res => {
-        setResponseData(res.data);
-      })
+    }).then(res => {
+      setResponseData(res.data);
+    })
       .catch(err => {
         console.log(err);
       })
@@ -148,15 +150,35 @@ export default function Index(props) {
         setTimeout(() => {
           setElapsedTime(0)
         }
-        , 1000)
+          , 1000)
       })
 
-      setTimeout(() => {
-        axios.get(`${props.baseUrl}/docs/sync`)
-      }, 1000)
+    setTimeout(() => {
+      axios.get(`${props.baseUrl}/docs/sync`)
+    }, 1000)
 
-      // force refresh the page to trigger getServerSideProps and update the docs list
-      router.replace(router.asPath)
+    // force refresh the page to trigger getServerSideProps and update the docs list
+    router.replace(router.asPath)
+  }
+
+  // ! WEBSOCKET -------------------------------------
+  function getResponseStream() {
+    // reset response stream
+    setResponseStream([])
+    // set enpoint and message
+    const endpoint = 'ws://127.0.0.1:8000/test/ws'
+    const message = {
+      "text": query,
+    }
+    // open socket, send message, and listen for response
+    const socket = new WebSocket(endpoint);
+    socket.onopen = () => {
+      socket.send(JSON.stringify(message));
+    };
+    // handle response
+    socket.onmessage = (event) => {
+      setResponseStream(prev => [...prev, event.data]);
+    }
   }
 
   // pass props to UI
@@ -176,6 +198,8 @@ export default function Index(props) {
     docForUpload,
     setDocForUpload,
     uploadDoc,
+    getResponseStream,
+    responseStream
   }
 
   return (

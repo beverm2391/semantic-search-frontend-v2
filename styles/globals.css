@@ -80,6 +80,26 @@ a {
   }
 }
 
+.stream-flash {
+  animation: stream-flash .2s ease-in-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes stream-flash {
+  0% {
+    background-color: inherit;
+  }
+  1% {
+    @apply bg-blue-200 text-white;
+  }
+  95% {
+    @apply bg-blue-200 text-white;
+  }
+  100% {
+    background-color: inherit;
+  }
+}
+
 /* ! LAYOUT ------------------------ */
 
 .main-container {
