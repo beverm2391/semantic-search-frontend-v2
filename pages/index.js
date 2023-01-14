@@ -182,8 +182,8 @@ export default function Index(props) {
     setLoadingStream(true);
 
     // set enpoint and message
-    const baseWSURL = process.env.WS_ENDPOINT;
-    const endpoint = `${baseWSURL}/semantic-qa/ws`
+    const baseWS = props.baseWS;
+    const endpoint = `${baseWS}/semantic-qa/ws`
     const max_tokens = selectedLength === 'longer' ? 1000 : 80;
     const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
     const message = {
@@ -250,6 +250,7 @@ export default function Index(props) {
 // get document list from API
 export async function getServerSideProps(context) {
   const baseUrl = process.env.API_ENDPOINT;
+  const baseWS = process.env.WS_ENDPOINT;
   const endpoint = `${baseUrl}/docs/list`;
 
   try {
@@ -261,6 +262,7 @@ export async function getServerSideProps(context) {
       props: {
         data: data,
         baseUrl: baseUrl,
+        baseWS: baseWS,
       },
     };
   } catch (error) {
@@ -269,6 +271,7 @@ export async function getServerSideProps(context) {
       props: {
         data: null,
         baseUrl: baseUrl,
+        baseWS: baseWS,
       },
     };
   }
