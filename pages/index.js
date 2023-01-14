@@ -182,7 +182,8 @@ export default function Index(props) {
     setLoadingStream(true);
 
     // set enpoint and message
-    const endpoint = 'ws://semantics.cloud/semantic-qa/ws'
+    const baseWSURL = process.env.WS_ENDPOINT;
+    const endpoint = `${baseWSURL}/semantic-qa/ws`
     const max_tokens = selectedLength === 'longer' ? 1000 : 80;
     const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
     const message = {
