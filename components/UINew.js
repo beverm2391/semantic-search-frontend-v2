@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState, useRef } from 'react'
 import AccordionDemo from './Accordion'
 import ToggleLength from './ToggleLength'
 import Select from './Select'
+import AccordianSelectDoc from './AccordionSelectDoc';
 
-export default function UI(props) {
+export default function UINew(props) {
     const {
         docs,
         setSelectedDoc,
@@ -23,6 +24,7 @@ export default function UI(props) {
         getResponseStream,
         responseStream,
         loadingStream,
+        folders,
     } = props;
 
     // make a request to the API via the index page
@@ -65,7 +67,30 @@ export default function UI(props) {
 
     return (
         <div className='main-container'>
-            <div className='col1 align-start'>
+            <div className='v2-col3'>
+            <div className='stats-container'>
+                    <button
+                        className='inline-flex justify-center items-center mb-3 w-full bg-gray-50 rounded-lg p-3 dark:bg-gray-800 dark:border-gray-600 border-gray-100 border-2 font-merry hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'
+                        onClick={() => fileUploadRef.current.click()}
+                    >
+                        {docForUpload ?
+                            <p>{docForUpload.name.substring(0, 20)}...</p> :
+                            <p className='text-gray-500'>nothing selected...</p>
+                        }
+                    </button>
+                    <button
+                        onClick={() => uploadDoc()}
+                        className='text-purple-500 dark:text-purple-500 border-2 border-purple-500 dark:border-purple-600 font-medium py-3 px-4 w-full rounded-lg hover:bg-purple-100 dark:bg-g-600 dark:hover:bg-slate-700'
+                    >
+                        Upload
+                    </button>
+                    <input type='file' name='image' ref={fileUploadRef} onChange={onFileChange} multiple={false} className='hidden' />
+                </div>
+                <div className='documents-container'>
+                    <AccordianSelectDoc folders={folders} />
+                </div>
+            </div>
+            <div className='v2-col1'>
                 <div className='input-container p-4'>
                     {/* <textarea
                         className='w-full p-4 rounded-xl bg-white dark:bg-gray-800'
@@ -137,7 +162,7 @@ export default function UI(props) {
                     </p> */}
                 </div>
             </div>
-            <div className='col2 text-gray-600 dark:text-gray-400'>
+            <div className='v2-col2 text-gray-600 dark:text-gray-400'>
                 <div className='settings-container flex flex-col'>
                     <div className='flex justify-center items-center py-2 px-2 rounded-lg'>
                         <ToggleLength
@@ -166,24 +191,6 @@ export default function UI(props) {
                             'N/A'
                         }
                     </p>
-                </div>
-                <div className='stats-container'>
-                    <button
-                        className='inline-flex justify-center items-center mb-3 w-full bg-gray-50 rounded-lg p-3 dark:bg-gray-800 dark:border-gray-600 border-gray-100 border-2 font-merry hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'
-                        onClick={() => fileUploadRef.current.click()}
-                    >
-                        {docForUpload ?
-                            <p>{docForUpload.name.substring(0, 20)}...</p> :
-                            <p className='text-gray-500'>no document selected...</p>
-                        }
-                    </button>
-                    <button
-                        onClick={() => uploadDoc()}
-                        className='text-purple-500 dark:text-purple-600 border-2 border-purple-500 dark:border-purple-600 font-medium py-3 px-4 w-full rounded-lg hover:bg-purple-100 dark:bg-g-600 dark:hover:bg-slate-700'
-                    >
-                        Emebed
-                    </button>
-                    <input type='file' name='image' ref={fileUploadRef} onChange={onFileChange} multiple={false} className='hidden' />
                 </div>
                 <div className='instructions-container'>
                     <AccordionDemo />

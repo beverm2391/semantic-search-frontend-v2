@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
 import { useRouter } from 'next/router';
+import UINew from '../components/UINew'
 
 export default function Index(props) {
   // document list
@@ -218,6 +219,14 @@ export default function Index(props) {
     }
   }
 
+  // ! GET DATA FROM S3 -------------------------------------
+  const folders = [
+    { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
+    { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
+    { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
+    { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
+  ]
+
   // pass props to UI
   const pageProps = {
     docs,
@@ -238,6 +247,7 @@ export default function Index(props) {
     getResponseStream,
     responseStream,
     loadingStream,
+    folders,
   }
 
   return (
@@ -247,7 +257,8 @@ export default function Index(props) {
         setAlertOpen={setAlertOpen}
         alert={alert}
       />
-      <UI {...pageProps} />
+      {/* <UI {...pageProps} /> */}
+      <UINew {...pageProps} />
     </Container>
   )
 }
