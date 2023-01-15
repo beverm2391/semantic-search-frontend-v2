@@ -192,7 +192,7 @@ export default function Index(props) {
       "max_tokens": max_tokens,
       "preset": preset,
     }
-    
+
     // open socket, send message, and listen for response
     const socket = new WebSocket(endpoint);
     socket.onopen = () => {
@@ -210,6 +210,11 @@ export default function Index(props) {
         setLoadingStream(false);
         setResponseStream(prev => [...prev, event.data]);
       }
+    }
+    // handle socket close error
+    socket.onclose = () => {
+      setLoading(false);
+      setLoadingStream(false);
     }
   }
 
@@ -249,12 +254,14 @@ export default function Index(props) {
 
 // get document list from API
 export async function getServerSideProps(context) {
-  const baseUrl = process.env.API_ENDPOINT;
-  const baseWS = process.env.WS_ENDPOINT;
-  const endpoint = `${baseUrl}/docs/list`;
+  console.log(process.env)
+  const baseUrl = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_API_ENDPOINT : process.env.API_ENDPOINT;
+  const baseWS = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_WS_ENDPOINT : process.env.WS_ENDPOINT;
+
+  const list_endpoint = `${baseUrl}/docs/list`;
 
   try {
-    const res = await axios.get(endpoint);
+    const res = await axios.get(list_endpoint);
     const data = res.data;
     console.log(data);
 
