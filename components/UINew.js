@@ -3,6 +3,7 @@ import AccordionDemo from './Accordion'
 import ToggleLength from './ToggleLength'
 import Select from './Select'
 import AccordianSelectDoc from './AccordionSelectDoc';
+import OutputTabs from './OutputTabs';
 
 export default function UINew(props) {
     const {
@@ -36,7 +37,7 @@ export default function UINew(props) {
         getResponseStream();
     }, [getResponseStream]);
 
-    // responseData schema
+    // responseData schema:
     // {'time' : 0.123, 'tokens' : tokens, 'cost': 0.12, 'response': response, 'context_pages' : [page1, page2, page3]]}
 
     useEffect(() => {
@@ -92,12 +93,6 @@ export default function UINew(props) {
             </div>
             <div className='v2-col1'>
                 <div className='input-container p-4'>
-                    {/* <textarea
-                        className='w-full p-4 rounded-xl bg-white dark:bg-gray-800'
-                        placeholder="query"
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
-                    /> */}
                     <input
                         type='text'
                         className='w-full p-4 rounded-xl bg-white dark:bg-gray-800 dark:text-gray-200 border-2 border-gray-300 dark:border-gray-700 mb-4'
@@ -106,13 +101,14 @@ export default function UINew(props) {
                         onChange={e => setQuery(e.target.value)}
                     />
                     <div className='buttons-container'>
+                        {!loading ?
                         <button
                             className={'bg-purple-500 text-white font-medium py-3 px-4 w-36 rounded-lg hover:scale-[1.01] hover:bg-purple-400 mr-3 dark:bg-purple-800 dark:hover:bg-purple-700'}
                             onClick={() => handleClick()}
                             disabled={loading}
                         >
                             Generate
-                        </button>
+                        </button> :
                         <button
                             className={
                                 loading ?
@@ -122,45 +118,10 @@ export default function UINew(props) {
                             onClick={cancelRequest}
                         >
                             Cancel
-                        </button>
+                        </button>}
                     </div>
                 </div>
-                <div className='output-container dark:bg-gray-800 dark:text-gray-200'>
-                    {loadingStream ?
-                        <p>Loading...</p> :
-                        responseStream ? responseStream.map((item, index) => {
-                            if (item === '\n' && index < 5) {
-                                return
-                            }
-                            else if (item === ' ') {
-                                return (
-                                    <span key={index}>{item}</span>
-                                )
-                            } else {
-                                return (
-                                    <span key={index} className='stream-flash'>{item}</span>
-                                )
-                            }
-                        }) :
-                            <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
-                    }
-                    {/* <p>
-                        {responseStream && responseStream.map((item, index) => {
-                            if (item === '\n' && index < 5) {
-                                return
-                            }
-                            else if (item === ' ') {
-                                return (
-                                    <span key={index}>{item}</span>
-                                )
-                            } else {
-                                return (
-                                    <span key={index} className='stream-flash'>{item}</span>
-                                )
-                            }
-                        })}
-                    </p> */}
-                </div>
+                <OutputTabs loadingStream={loadingStream} responseStream={responseStream}/>
             </div>
             <div className='v2-col2 text-gray-600 dark:text-gray-400'>
                 <div className='settings-container flex flex-col'>

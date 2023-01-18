@@ -1,5 +1,4 @@
 import Container from '../components/Container'
-import UI from '../components/UI'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
@@ -265,7 +264,6 @@ export default function Index(props) {
         setAlertOpen={setAlertOpen}
         alert={alert}
       />
-      {/* <UI {...pageProps} /> */}
       <UINew {...pageProps} />
     </Container>
   )
