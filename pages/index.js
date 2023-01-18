@@ -8,6 +8,7 @@ import UINew from '../components/UINew'
 
 export default function Index(props) {
   // document list
+  console.log(props)
   const docs = props && props.data && props.data['docs'] ? props.data['docs'] : ['Failed to load docs...'];
 
   // init router
@@ -272,11 +273,12 @@ export default function Index(props) {
 
 // get document list from API
 export async function getServerSideProps(context) {
-  console.log(process.env)
   const baseUrl = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_API_ENDPOINT : process.env.API_ENDPOINT;
   const baseWS = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_WS_ENDPOINT : process.env.WS_ENDPOINT;
 
   const list_endpoint = `${baseUrl}/docs/list`;
+
+  console.log(list_endpoint)
 
   try {
     const res = await axios.get(list_endpoint);
