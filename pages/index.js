@@ -32,6 +32,7 @@ export default function Index(props) {
   const [alert, setAlert] = useState('');
 
   useEffect(() => {
+    console.log('Selected Doc:\n')
     console.log(selectedDoc)
   }, [selectedDoc])
 
@@ -277,12 +278,13 @@ export async function getServerSideProps(context) {
 
   const list_endpoint = `${baseUrl}/docs/list`;
 
-  console.log(list_endpoint)
-
   try {
     const res = await axios.get(list_endpoint);
     const data = res.data;
-    console.log(`DATA:\n ${data}`);
+    
+    // ? DEBUG
+    console.log('DATA:\n')
+    data ? console.log(data) : console.log('Data is null');
 
     return {
       props: {
@@ -292,7 +294,8 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.log(`ERROR:\n ${error}`);
+    console.log('ERROR:\n')
+    console.log(error);
     return {
       props: {
         data: null,
