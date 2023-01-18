@@ -31,10 +31,10 @@ export default function Index(props) {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alert, setAlert] = useState('');
 
-  useEffect(() => {
-    console.log('Selected Doc:\n')
-    console.log(selectedDoc)
-  }, [selectedDoc])
+  // useEffect(() => {
+  //   console.log('Selected Doc:\n')
+  //   console.log(selectedDoc)
+  // }, [selectedDoc])
 
   //! make a semantic QA request to the API -------------------------------------
   async function getResponse() {
@@ -273,6 +273,7 @@ export default function Index(props) {
 
 // get document list from API
 export async function getServerSideProps(context) {
+  // ! You wont see any console logs in the browser console because this is a server side function
   const baseUrl = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_API_ENDPOINT : process.env.API_ENDPOINT;
   const baseWS = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_WS_ENDPOINT : process.env.WS_ENDPOINT;
 
