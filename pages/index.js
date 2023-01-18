@@ -31,6 +31,9 @@ export default function Index(props) {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alert, setAlert] = useState('');
 
+  useEffect(() => {
+    console.log(selectedDoc)
+  }, [selectedDoc])
 
   //! make a semantic QA request to the API -------------------------------------
   async function getResponse() {
@@ -220,11 +223,15 @@ export default function Index(props) {
   }
 
   // ! GET DATA FROM S3 -------------------------------------
+  // const folders = [
+  //   { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
+  //   { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
+  //   { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
+  //   { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
+  // ]
+
   const folders = [
-    { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
-    { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
-    { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
-    { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
+    {'name': 'documents', 'content': docs}
   ]
 
   // pass props to UI
@@ -284,7 +291,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.log(error);
+    console.log(`ERROR: ${error}`);
     return {
       props: {
         data: null,

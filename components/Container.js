@@ -31,7 +31,7 @@ export default function Container(props) {
     }
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-900">
+        <div>
             <Head>
                 <title>{meta.title}</title>
                 <meta name="robots" content="follow, index" />

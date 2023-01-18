@@ -139,7 +139,7 @@ a {
 }
 
 .input-container, .output-container, .settings-container, .stats-container, .instructions-container, .documents-container {
-  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:border-gray-900 dark:border-2
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-md dark:border-gray-900 dark:border-2
 }
 
 .input-container {
@@ -661,7 +661,7 @@ textarea:focus {
 .topbar {
   display: grid;
   grid-template-columns: [logo] 250px [menubar] 1fr [darkmode] 250px;
-  @apply w-full relative border-gray-200 dark:border-gray-800 py-4 text-gray-900 dark:bg-gray-900 bg-opacity-60 dark:text-gray-100 mb-8 border-b-2 px-10 bg-white shadow-sm;
+  @apply w-full relative border-gray-200 dark:border-gray-800 py-4 text-gray-900 dark:bg-gray-900 dark:text-gray-100 mb-8 border-b-2 px-10 bg-white;
 }
 
 .logocontainer {

@@ -87,7 +87,7 @@ export default function UINew(props) {
                     <input type='file' name='image' ref={fileUploadRef} onChange={onFileChange} multiple={false} className='hidden' />
                 </div>
                 <div className='documents-container'>
-                    <AccordianSelectDoc folders={folders} />
+                    <AccordianSelectDoc folders={folders} setSelectedDoc={setSelectedDoc}/>
                 </div>
             </div>
             <div className='v2-col1'>
@@ -172,7 +172,6 @@ export default function UINew(props) {
                     </div>
                 </div>
                 <div className='stats-container'>
-                    <Select docs={docs} setSelectedDoc={setSelectedDoc} />
                     <h3 className='font-medium text-gray-800 dark:text-gray-300'>Pages Accessed:</h3>
                     <p className={`${flash} mb-1`}>{context_pages ?
                         context_pages.map((page, index) => {
