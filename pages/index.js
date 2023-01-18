@@ -8,7 +8,6 @@ import UINew from '../components/UINew'
 
 export default function Index(props) {
   // document list
-  console.log(props)
   const docs = props && props.data && props.data['docs'] ? props.data['docs'] : ['Failed to load docs...'];
 
   // init router
@@ -283,7 +282,7 @@ export async function getServerSideProps(context) {
   try {
     const res = await axios.get(list_endpoint);
     const data = res.data;
-    console.log(data);
+    console.log(`DATA:\n ${data}`);
 
     return {
       props: {
@@ -293,7 +292,7 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.log(`ERROR: ${error}`);
+    console.log(`ERROR:\n ${error}`);
     return {
       props: {
         data: null,
