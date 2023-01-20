@@ -3,7 +3,8 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
 import { useRouter } from 'next/router';
-import UINew from '../components/UINew'
+import UIV2 from '../components/UIv2'
+import UIV3 from '../components/UIv3'
 
 export default function Index(props) {
   // document list
@@ -223,21 +224,22 @@ export default function Index(props) {
   }
 
   // ! GET DATA FROM S3 -------------------------------------
-  // const folders = [
-  //   { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
-  //   { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
-  //   { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
-  //   { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
-  // ]
-
   const folders = [
-    {'name': 'documents', 'content': docs}
+    { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
+    { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
+    { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
+    { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
   ]
+
+  // const folders = [
+  //   {'name': 'documents', 'content': docs}
+  // ]
 
   // pass props to UI
   const pageProps = {
     docs,
     setSelectedDoc,
+    selectedDoc,
     selectedLength,
     setSelectedLength,
     query,
@@ -264,7 +266,8 @@ export default function Index(props) {
         setAlertOpen={setAlertOpen}
         alert={alert}
       />
-      <UINew {...pageProps} />
+      {/* <UIV2 {...pageProps} /> */}
+      <UIV3 {...pageProps} />
     </Container>
   )
 }

@@ -8,16 +8,16 @@ function OutputTabs(props) {
     } = props;
     return (
         <Tabs.Root className="TabsRoot" defaultValue="tab1">
-            <Tabs.List className="TabsList" aria-label="Manage your account">
+            <Tabs.List className="TabsList" aria-label="see information">
                 <Tabs.Trigger className="TabsTrigger" value="tab1">
-                    Response
+                    Query
                 </Tabs.Trigger>
                 <Tabs.Trigger className="TabsTrigger" value="tab2">
-                    Document Info
+                    Upload
                 </Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content className="TabsContent" value="tab1">
-                <div className='output-container dark:bg-gray-800 dark:text-gray-200'>
+                <div className='response-container'>
                     {loadingStream ?
                         <p>Loading...</p> :
                         responseStream ? responseStream.map((item, index) => {
@@ -39,11 +39,18 @@ function OutputTabs(props) {
                 </div>
             </Tabs.Content>
             <Tabs.Content className="TabsContent" value="tab2">
-                <div className='output-container'>
-                    Docs info
+                <div className='doc-info-container'>
+                    <div className='py-2 px-1 bg-gray-200 rounded-md w-[auto]'><p>Name:</p></div>
+                    <p>{' '}name goes here</p>
+                    <p className='mb-4'>
+                        <span className='py-2 px-1 bg-gray-200 rounded-md'>
+                            Description:
+                        </span>
+                        {' '}this is the description of whatever the document that is selected it
+                    </p>
                 </div>
             </Tabs.Content>
-        </Tabs.Root>
+        </Tabs.Root >
     )
 }
 

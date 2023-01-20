@@ -9,7 +9,7 @@ export default function DMButton(props) {
             <button
                 aria-label="Toggle Dark Mode"
                 type="button"
-                className="w-10 h-10 border-2 border-gray-300 dark:border-gray-700 rounded-lg dark:bg-gray-800 flex items-center justify-center  hover:ring-2 ring-gray-300 dark:ring-gray-700 transition-all"
+                className="w-10 h-10 border-2 border-gray-300 dark:border-gray-500 rounded-xl dark:bg-piano-black flex items-center justify-center  hover:ring-2 ring-gray-300 dark:ring-gray-700 transition-all"
                 onClick={() => handleClick()}
             >
                 {mounted && (

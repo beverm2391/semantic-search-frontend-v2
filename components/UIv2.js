@@ -69,7 +69,7 @@ export default function UINew(props) {
     return (
         <div className='main-container'>
             <div className='v2-col3'>
-            <div className='stats-container'>
+                <div className='stats-container'>
                     <button
                         className='inline-flex justify-center items-center mb-3 w-full bg-gray-50 rounded-lg p-3 dark:bg-gray-800 dark:border-gray-600 border-gray-100 border-2 font-merry hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'
                         onClick={() => fileUploadRef.current.click()}
@@ -88,7 +88,7 @@ export default function UINew(props) {
                     <input type='file' name='image' ref={fileUploadRef} onChange={onFileChange} multiple={false} className='hidden' />
                 </div>
                 <div className='documents-container'>
-                    <AccordianSelectDoc folders={folders} setSelectedDoc={setSelectedDoc}/>
+                    <AccordianSelectDoc folders={folders} setSelectedDoc={setSelectedDoc} />
                 </div>
             </div>
             <div className='v2-col1'>
@@ -102,26 +102,28 @@ export default function UINew(props) {
                     />
                     <div className='buttons-container'>
                         {!loading ?
-                        <button
-                            className={'bg-purple-500 text-white font-medium py-3 px-4 w-36 rounded-lg hover:scale-[1.01] hover:bg-purple-400 mr-3 dark:bg-purple-800 dark:hover:bg-purple-700'}
-                            onClick={() => handleClick()}
-                            disabled={loading}
-                        >
-                            Generate
-                        </button> :
-                        <button
-                            className={
-                                loading ?
-                                    'bg-red-500 text-white font-medium py-3 px-4 w-36 rounded-lg hover:scale-[1.01] hover:bg-red-400 mr-4 dark:bg-red-600 dark:hover:bg-red-500' :
-                                    'bg-gray-300 text-gray-500 font-medium py-3 px-4 w-36 rounded-lg mr-4 dark:bg-gray-600'}
-                            disabled={!loading}
-                            onClick={cancelRequest}
-                        >
-                            Cancel
-                        </button>}
+                            <button
+                                className={'bg-purple-500 text-white font-medium py-3 px-4 w-36 rounded-lg hover:scale-[1.01] hover:bg-purple-400 mr-3 dark:bg-purple-800 dark:hover:bg-purple-700'}
+                                onClick={() => handleClick()}
+                                disabled={loading}
+                            >
+                                Generate
+                            </button> :
+                            <button
+                                className={
+                                    loading ?
+                                        'bg-red-500 text-white font-medium py-3 px-4 w-36 rounded-lg hover:scale-[1.01] hover:bg-red-400 mr-4 dark:bg-red-600 dark:hover:bg-red-500' :
+                                        'bg-gray-300 text-gray-500 font-medium py-3 px-4 w-36 rounded-lg mr-4 dark:bg-gray-600'}
+                                disabled={!loading}
+                                onClick={cancelRequest}
+                            >
+                                Cancel
+                            </button>}
                     </div>
                 </div>
-                <OutputTabs loadingStream={loadingStream} responseStream={responseStream}/>
+                <div className='output-container'>
+                    <OutputTabs loadingStream={loadingStream} responseStream={responseStream} />
+                </div>
             </div>
             <div className='v2-col2 text-gray-600 dark:text-gray-400'>
                 <div className='settings-container flex flex-col'>

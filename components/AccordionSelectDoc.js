@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import { BsFolderFill } from 'react-icons/bs';
+import { BsCloudCheckFill } from 'react-icons/bs';
 
 function AccordianSelectDoc(props) {
     const folders = props.folders
@@ -29,10 +30,10 @@ function AccordianSelectDoc(props) {
                 <RadioGroup.Root defaultValue='r1-1' aria-label="View density">
                     {folders.map((folder, idx1) => (
                         <Accordion.Item value={folder['name']} key={idx1}>
-                            <AccordionTrigger className='font-medium font-lg bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 py-4 px-4 h-12'><BsFolderFill /><p className='ml-4 mr-2'>{folder['name']}</p></AccordionTrigger>
+                            <AccordionTrigger className='font-medium font-lg text-gray-600 dark:text-gray-300 py-4 px-4 h-12'><BsFolderFill /><p className='ml-4 mr-2'>{folder['name']}</p></AccordionTrigger>
                             <AccordionContent>
                                 {folder['content'].map((document, idx2) => (
-                                    <div className='flex items-center h-8 my-2' key={`${idx1}-${idx2}`}>
+                                    <div className={`flex items-center h-8 my-2 doc-item`} key={`${idx1}-${idx2}`}>
                                         <RadioGroup.Item
                                             value={`${idx1}-${idx2}`}
                                             id={`${idx1}-${idx2}`}
@@ -40,7 +41,7 @@ function AccordianSelectDoc(props) {
                                             onClick={() => setCheckedId(`${idx1}-${idx2}`)}
                                         >
                                             <RadioGroup.Indicator className="RadioGroupIndicator">
-                                                {/* <CheckIcon className="text-gray-800 dark:text-gray-200" /> */}
+                                                <BsCloudCheckFill className="text-purple-500 dark:text-gray-200 h-4 w-4 mr-1" />
                                             </RadioGroup.Indicator>
                                         </RadioGroup.Item>
                                         <label className="Label hover:cursor-pointer text-gray-500 dark:text-gray-300 hover:text-purple-500 font-medium p-3 rounded-lg"

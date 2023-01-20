@@ -22,7 +22,7 @@ html {
 }
 
 #__next {
-  @apply bg-gray-100 dark:bg-gray-900;
+  @apply bg-white-smoke dark:bg-piano-black;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -53,11 +53,6 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
-  }
-
-  body {
-    color: white;
-    background: black;
   }
 }
 
@@ -113,33 +108,14 @@ a {
   width: 100%;
 }
 
-/* .col1 {
-  padding-top: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-  width: 100%;
-  max-width: 36rem;
+.ui-sidebar {
+  min-height: calc(100vh - 70px);
 }
-
-.col2 {
-  padding-top: 2px;
-  display: flex;
-  flex-direction: column;
-  width: 18rem;
-  gap: 2rem;
-  height: 100%;
-} */
 
 @media (max-width: 1000px) {
   .col2 {
     display: none;
   }
-}
-
-.input-container, .output-container, .settings-container, .stats-container, .instructions-container, .documents-container {
-  @apply bg-white dark:bg-gray-800 rounded-xl shadow-md dark:border-gray-900 dark:border-2
 }
 
 .input-container {
@@ -157,13 +133,29 @@ a {
 }
 
 .output-container {
-  @apply p-6 font-merry text-black;
+  @apply text-black;
   width: 100%;
   min-height: 400px;
   overflow: hidden;
+  /* white-space: pre-wrap;
+  overflow-wrap: break-word; */
+  line-height: 1.6;
+}
+
+.response-container {
+  @apply p-6 dark:text-gray-200 font-merry;
+  width: 100%;
+  overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  line-height: 1.6;
+}
+
+.doc-info-container {
+  @apply p-6;
+  width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .settings-container {
@@ -223,11 +215,12 @@ a {
 }
 
 .documents-container {
-  @apply p-4;
+  /* @apply p-4; */
   width: 100%;
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  overflow: visible;
 }
 
 /* ! TEXT INPUTS */
@@ -352,8 +345,11 @@ textarea:focus {
 .AccordionSelectDocRoot {
   border-radius: 6px;
   width: 100%;
-  @apply bg-white dark:bg-gray-800;
-  /* box-shadow: 0 2px 10px var(--blackA4); */
+  @apply border-2 border-white-smoke dark:border-satin-deep-black rounded-lg overflow-hidden transition-all;
+}
+
+.AccordionSelectDocRoot:has(.AccordionSelectDocContent[data-state='open']) {
+  @apply border-purple-500 shadow-lg transition-all scale-[1.01];
 }
 
 .AccordionSelectDocItem {
@@ -383,24 +379,23 @@ textarea:focus {
 }
 
 .AccordionSelectDocTrigger {
-  background-color: transparent;
   flex: 1;
   display: flex;
   /* align-items: center; */
   /* justify-content: space-between; */
   line-height: 1;
-  box-shadow: 0 1px 0 var(--mauve6);
+  @apply bg-white-smoke dark:bg-satin-deep-black
 }
 
 .AccordionSelectDocTrigger:hover {
-@apply bg-gray-100 dark:bg-gray-700 rounded-lg;
+@apply bg-white dark:bg-gray-900 rounded-lg;
 }
 
 .AccordionSelectDocContent {
   overflow: hidden;
   font-size: 15px;
   color: var(--mauve11);
-  @apply bg-gray-100 rounded-lg dark:bg-gray-700 my-2;
+  @apply bg-white dark:bg-gray-800;
 }
 
 .AccordionSelectDocContent[data-state='open'] {
@@ -660,14 +655,13 @@ textarea:focus {
 
 .topbar {
   display: grid;
-  grid-template-columns: [logo] 250px [menubar] 1fr [darkmode] 250px;
-  @apply w-full relative border-gray-200 dark:border-gray-800 py-4 text-gray-900 dark:bg-gray-900 dark:text-gray-100 mb-8 border-b-2 px-10 bg-white;
+  grid-template-columns: [logo] 50px [menubar] 1fr [darkmode] 300px;
 }
 
 .logocontainer {
   grid-column: logo;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -1007,7 +1001,9 @@ textarea:focus {
 .RadioGroupRoot {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+}
+
+.doc-item:has(button[data-state='checked']) {
 }
 
 /* .RadioGroupItem {
@@ -1021,6 +1017,10 @@ textarea:focus {
 .RadioGroupItem:focus {
   @apply shadow-lg
 } */
+
+.RadioGroupItem{
+  @apply bg-green-500 scale-125;
+}
 
 .RadioGroupIndicator {
   display: flex;
@@ -1045,7 +1045,7 @@ textarea:focus {
 }
 
 button[data-state='checked'] + label {
-  @apply text-purple-500 bg-white dark:bg-gray-700 dark:text-white ring-2 ring-purple-500 w-full scale-[1.01];
+  @apply text-purple-500 dark:text-white w-full italic scale-[1.05];
 }
 
 /* ! TABS */
@@ -1053,31 +1053,29 @@ button[data-state='checked'] + label {
 .TabsList {
   flex-shrink: 0;
   display: flex;
-  border-bottom: 1px solid var(--mauve6);
+  @apply border-gray-200 dark:border-gray-800;
 }
 
 .TabsTrigger {
-  padding: 0 20px;
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
   user-select: none;
-  @apply text-purple-500 h-12 bg-white dark:bg-gray-800;
+  @apply text-gray-400 h-12 font-medium px-8;
 }
 .TabsTrigger:first-child {
-  border-top-left-radius: 6px;
+  border-top-left-radius: 0px;
 }
 .TabsTrigger:last-child {
-  border-top-right-radius: 6px;
+  border-top-right-radius: 0px;
 }
 .TabsTrigger:hover {
-  @apply text-purple-500;
 }
 .TabsTrigger[data-state='active'] {
-  @apply text-purple-500;
-  box-shadow: inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor;
+  @apply text-black dark:text-white;
+  /* box-shadow: inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor; */
 }
 .TabsTrigger:focus {
   position: relative;

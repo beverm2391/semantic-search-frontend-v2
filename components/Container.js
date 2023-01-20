@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import React from 'react';
 import NavMenu from './NavMenu';
 import DarkModeButton from './DarkModeButton';
-import { BsCloudyFill } from 'react-icons/bs';
+import { BsCloudy } from 'react-icons/bs';
 import Link from 'next/link';
 
 export default function Container(props) {
@@ -52,23 +52,22 @@ export default function Container(props) {
                     <meta property="article:published_time" content={meta.date} />
                 )}
             </Head>
-            <div className="topbar">
-                <div className='logocontainer'>
+            <div className="topbar w-full relative py-[12px] bg-white dark:bg-piano-black px-10 text-black dark:text-gray-300 border-gray-200 border-b-2 dark:border-gray-800 h-[70px]">
+                <div className='logocontainer '>
                     <Link href="/">
-                        <div className='border-2 flex justify-center items-center px-4 py-1 border-gray-300 dark:border-gray-700 rounded-xl'>
-                            <h3 className='text-2xl font-medium text-gray-800 dark:text-gray-200 font-merry'>semantics. </h3>
-                            <BsCloudyFill className='h-6 w-6 ml-3 text-gray-800 dark:text-gray-200' />
-                        </div>
+                        <BsCloudy className='h-6 w-6' />
                     </Link>
                 </div>
                 <div className="navmenucontainer">
-                    <NavMenu mounted={mounted} handleClick={handleClick} resolvedTheme={resolvedTheme} />
+                    {/* <NavMenu mounted={mounted} handleClick={handleClick} resolvedTheme={resolvedTheme} /> */}
                 </div>
-                <div className="darkmodecontainer">
+                <div className="darkmodecontainer font-medium">
+                    <button className='w-24 mr-4 py-[8px] px-[10px] rounded-lg'>Sign Up</button>
+                    <button className='w-24 mr-8 bg-gray-200 dark:bg-gray-700 border-gray-300 py-[8px] px-[10px] rounded-full hover:bg-gray-100 transition-all'>Login</button>
                     <DarkModeButton mounted={mounted} handleClick={handleClick} resolvedTheme={resolvedTheme} />
                 </div>
             </div>
-            <main className="flex flex-col items-center px-8 pb-16 bg-gray-100 dark:bg-gray-900 w-full">
+            <main className="flex flex-col items-center w-full h-full">
                 {children}
             </main >
         </div >
