@@ -7,6 +7,7 @@ import NavMenu from './NavMenu';
 import DarkModeButton from './DarkModeButton';
 import { BsCloudy } from 'react-icons/bs';
 import Link from 'next/link';
+import Animate from './Animate';
 
 export default function Container(props) {
     const [mounted, setMounted] = useState(false);
@@ -53,9 +54,21 @@ export default function Container(props) {
                 )}
             </Head>
             <div className="topbar w-full relative py-[12px] bg-white dark:bg-piano-black px-10 text-black dark:text-gray-300 border-gray-200 border-b-2 dark:border-gray-800 h-[70px]">
-                <div className='logocontainer '>
+                <div className='logocontainer justify-center items-center'>
                     <Link href="/">
-                        <BsCloudy className='h-6 w-6' />
+                        <BsCloudy className='h-6 w-6 mr-8' />
+                    </Link>
+                    <Link
+                        className={`font-medium px-8 text-black dark:text-white`}
+                        href="/"
+                    >
+                        Dashboard
+                    </Link>
+                    <Link
+                        className={`font-medium px-8 text-black dark:text-white`}
+                        href="/"
+                    >
+                        Pricing
                     </Link>
                 </div>
                 <div className="navmenucontainer">
@@ -67,7 +80,7 @@ export default function Container(props) {
                     <DarkModeButton mounted={mounted} handleClick={handleClick} resolvedTheme={resolvedTheme} />
                 </div>
             </div>
-            <main className="flex flex-col items-center w-full h-full">
+            <main className="w-full h-full">
                 {children}
             </main >
         </div >

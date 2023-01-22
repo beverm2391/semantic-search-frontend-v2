@@ -26,7 +26,7 @@ function AccordianSelectDoc(props) {
 
     return (
         <div className="AccordionSelectDocWrapper">
-            <Accordion.Root className="AccordionSelectDocRoot" type="single" collapsible>
+            <Accordion.Root className="AccordionSelectDocRoot" type="single" collapsible defaultValue={folders[0]['name']}>
                 <RadioGroup.Root defaultValue='r1-1' aria-label="View density">
                     {folders.map((folder, idx1) => (
                         <Accordion.Item value={folder['name']} key={idx1}>

@@ -15,11 +15,12 @@ export default function Index(props) {
 
   // data states
   const [selectedDoc, setSelectedDoc] = useState(null);
-  const [selectedLength, setSelectedLength] = useState('longer');
+  const [selectedLength, setSelectedLength] = useState('markdown');
   const [selectedTemp, setSelectedTemp] = useState('thoughtful');
   const [query, setQuery] = useState('');
   const [responseData, setResponseData] = useState(null);
   const [responseStream, setResponseStream] = useState([]);
+  const [textAreaValue, setTextAreaValue] = useState('');
   // loading states
   const [loading, setLoading] = useState(false);
   const [loadingStream, setLoadingStream] = useState(false);
@@ -31,78 +32,7 @@ export default function Index(props) {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alert, setAlert] = useState('');
 
-  // useEffect(() => {
-  //   console.log('Selected Doc:\n')
-  //   console.log(selectedDoc)
-  // }, [selectedDoc])
-
-  //! make a semantic QA request to the API -------------------------------------
-  async function getResponse() {
-
-    // handle errors
-    if (selectedDoc === null) {
-      setAlert("Please select a document. Can't answer your questions without a document.");
-      setAlertOpen(true);
-      return;
-    }
-    if (query === '') {
-      setAlert("You have to enter a query. I'm not a mind reader.");
-      setAlertOpen(true);
-      return;
-    }
-
-    // set loading and timer
-    setLoading(true)
-    setIsRunning(true)
-
-    const source = axios.CancelToken.source();
-    setCancelToken(source);
-
-    // based on selector
-    const max_tokens = selectedLength === 'longer' ? 1000 : 80;
-    const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
-
-    // prepare request
-    const endpoint = `${props.baseUrl}/semantic-qa`
-    const req = {
-      "doc_name": selectedDoc,
-      "query": query,
-      "max_tokens": max_tokens,
-      "preset": preset,
-    }
-
-    // make request
-    try {
-      const res = await axios.post(endpoint, req, { cancelToken: source.token });
-      const data = res.data;
-      setResponseData(data);
-    } catch (error) {
-      // handle cancel
-      if (axios.isCancel(error)) {
-        return;
-      } else {
-        // handle error
-        console.log(error);
-      }
-    } finally {
-      // reset loading and timer
-      setLoading(false)
-      setIsRunning(false)
-      setFlash('flash')
-
-      // reset timer after 1 second
-      setTimeout(() => {
-        setElapsedTime(0)
-      }, 1000)
-
-      // reset cancel token
-      setCancelToken(null);
-    }
-  }
-
-  const cancelRequest = () => {
-    cancelToken.cancel();
-  };
+  const MY_API_KEY = props.MY_API_KEY
 
   //! stopwatch -------------------------------------
   useEffect(() => {
@@ -139,7 +69,8 @@ export default function Index(props) {
 
     const res = await axios.post(endpoint, tempFormData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        'X-API-KEY': MY_API_KEY
       }
     }).then(res => {
       setResponseData(res.data);
@@ -189,17 +120,21 @@ export default function Index(props) {
     // set enpoint and message
     const baseWS = props.baseWS;
     const endpoint = `${baseWS}/semantic-qa/ws`
-    const max_tokens = selectedLength === 'longer' ? 1000 : 80;
-    const preset = selectedLength === 'longer' ? 'longer' : 'shorter';
+    const max_tokens = 1000
+    const preset = 'longer'
     const message = {
+      "api_key": MY_API_KEY,
       "doc_name": selectedDoc,
       "query": query,
       "max_tokens": max_tokens,
       "preset": preset,
     }
 
+    console.log(message)
+
     // open socket, send message, and listen for response
     const socket = new WebSocket(endpoint);
+
     socket.onopen = () => {
       socket.send(JSON.stringify(message));
     };
@@ -224,16 +159,16 @@ export default function Index(props) {
   }
 
   // ! GET DATA FROM S3 -------------------------------------
-  const folders = [
-    { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
-    { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
-    { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
-    { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
-  ]
-
   // const folders = [
-  //   {'name': 'documents', 'content': docs}
+  //   { 'name': 'documents', 'content': ['learning about animals', 'jims dissertation', 'the history of the world', 'the history of the internet'] },
+  //   { 'name': 'books', 'content': ['the great gatsby', 'the catcher in the rye'] },
+  //   { 'name': 'articles', 'content': ['the history of the internet', 'the history of the world'] },
+  //   { 'name': 'news', 'content': ['the latest news', 'the latest news', 'the newest news'] },
   // ]
+
+  const folders = [
+    {'name': 'documents', 'content': docs}
+  ]
 
   // pass props to UI
   const pageProps = {
@@ -245,11 +180,9 @@ export default function Index(props) {
     query,
     setQuery,
     responseData,
-    getResponse,
     loading,
     flash,
     elapsedTime,
-    cancelRequest,
     docForUpload,
     setDocForUpload,
     uploadDoc,
@@ -257,6 +190,8 @@ export default function Index(props) {
     responseStream,
     loadingStream,
     folders,
+    textAreaValue,
+    setTextAreaValue,
   }
 
   return (
@@ -277,11 +212,15 @@ export async function getServerSideProps(context) {
   // ! You wont see any console logs in the browser console because this is a server side function
   const baseUrl = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_API_ENDPOINT : process.env.API_ENDPOINT;
   const baseWS = process.env.ENVIRONMENT === 'development' ? process.env.LOCAL_WS_ENDPOINT : process.env.WS_ENDPOINT;
+  const MY_API_KEY = process.env.MY_API_KEY;
 
   const list_endpoint = `${baseUrl}/docs/list`;
+  const headers = {
+    'X-API-KEY': MY_API_KEY
+  }
 
   try {
-    const res = await axios.get(list_endpoint);
+    const res = await axios.get(list_endpoint, { headers: headers });
     const data = res.data;
     
     // ? DEBUG
@@ -293,6 +232,7 @@ export async function getServerSideProps(context) {
         data: data,
         baseUrl: baseUrl,
         baseWS: baseWS,
+        MY_API_KEY: MY_API_KEY,
       },
     };
   } catch (error) {
@@ -303,6 +243,7 @@ export async function getServerSideProps(context) {
         data: null,
         baseUrl: baseUrl,
         baseWS: baseWS,
+        MY_API_KEY: MY_API_KEY,
       },
     };
   }

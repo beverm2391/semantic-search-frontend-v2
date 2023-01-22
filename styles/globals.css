@@ -24,7 +24,9 @@ html {
 #__next {
   @apply bg-white-smoke dark:bg-piano-black;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
+  overflow: scroll;
 }
 
 
@@ -76,7 +78,7 @@ a {
 }
 
 .stream-flash {
-  animation: stream-flash .2s ease-in-out;
+  animation: stream-flash .3s ease-in-out;
   animation-iteration-count: 1;
 }
 
@@ -97,6 +99,21 @@ a {
   }
 }
 
+
+.fade-in {
+  animation: fade-in 0.2s ease-in;
+  animation-iteration-count: 1;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* ! LAYOUT ------------------------ */
 
 .main-container {
@@ -109,7 +126,25 @@ a {
 }
 
 .ui-sidebar {
+  height: 100%;
+}
+
+.ui-wrapper {
   min-height: calc(100vh - 70px);
+}
+
+.ui-container {
+  max-height: calc(100vh - 70px);
+}
+
+.ui-sidebar {
+  min-height: calc(100vh - 70px);
+}
+
+@media screen and (max-width: 768px) {
+  .ui-sidebar {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -182,6 +217,20 @@ a {
   overflow-wrap: break-word;
 }
 
+.active-tab {
+  /* box-shadow: 0 2px 0 0 theme('colors.purple.500');
+  transition: box-shadow 0.2s ease-in-out;
+  transition-delay: 0.1s;
+  color: theme('colors.purple.500');
+  transition: color 0.6s ease-in-out; */
+}
+
+.inactive-tab {
+  /* transition: box-shadow 0.2s ease-in-out; */
+}
+
+/* class for dark mode */
+
 /* ! LAYOUT V2 */
 
 .v2-col1 {
@@ -225,7 +274,7 @@ a {
 
 /* ! TEXT INPUTS */
 
-input:focus{
+/* input:focus{
   outline: none;
   box-shadow: 0 0 0 2px theme('colors.purple.500');
 }
@@ -236,7 +285,7 @@ textarea {
 
 textarea:focus {
   box-shadow: 0 0 0 2px theme('colors.purple.500');
-}
+} */
 
 /* ! ACCORDIAN ------------------------------------ */
 /* reset */
@@ -655,7 +704,7 @@ textarea:focus {
 
 .topbar {
   display: grid;
-  grid-template-columns: [logo] 50px [menubar] 1fr [darkmode] 300px;
+  grid-template-columns: [logo] 500px [menubar] 1fr [darkmode] 300px;
 }
 
 .logocontainer {
@@ -677,6 +726,26 @@ textarea:focus {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .topbar {
+    display: flex;
+    flex-direction: row;
+  }
+  .menubarcontainer {
+    /* display: none; */
+  }
+  .darkmodecontainer {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logocontainer {
+    display: none;
+  }
 }
 
 /* ! NAV Menu */
@@ -1049,6 +1118,9 @@ button[data-state='checked'] + label {
 }
 
 /* ! TABS */
+.TabsRoot {
+  height: 50rem;
+}
 
 .TabsList {
   flex-shrink: 0;
@@ -1079,4 +1151,12 @@ button[data-state='checked'] + label {
 }
 .TabsTrigger:focus {
   position: relative;
+}
+
+.TabsContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  @apply p-6 bg-white;
 }

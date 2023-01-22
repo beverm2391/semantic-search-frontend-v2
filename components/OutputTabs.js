@@ -17,29 +17,26 @@ function OutputTabs(props) {
                 </Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content className="TabsContent" value="tab1">
-                <div className='response-container'>
-                    {loadingStream ?
-                        <p>Loading...</p> :
-                        responseStream ? responseStream.map((item, index) => {
-                            if (item === '\n' && index < 5) {
-                                return
-                            }
-                            else if (item === ' ') {
-                                return (
-                                    <span key={index}>{item}</span>
-                                )
-                            } else {
-                                return (
-                                    <span key={index} className='stream-flash'>{item}</span>
-                                )
-                            }
-                        }) :
-                            <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
-                    }
-                </div>
+                {loadingStream ?
+                    <p>Loading...</p> :
+                    responseStream ? responseStream.map((item, index) => {
+                        if (item === '\n' && index < 5) {
+                            return
+                        }
+                        else if (item === ' ') {
+                            return (
+                                <span key={index}>{item}</span>
+                            )
+                        } else {
+                            return (
+                                <span key={index} className='stream-flash'>{item}</span>
+                            )
+                        }
+                    }) :
+                        <p className='text-gray-500 dark:text-gray-500'>response will show up here</p>
+                }
             </Tabs.Content>
             <Tabs.Content className="TabsContent" value="tab2">
-                <div className='doc-info-container'>
                     <div className='py-2 px-1 bg-gray-200 rounded-md w-[auto]'><p>Name:</p></div>
                     <p>{' '}name goes here</p>
                     <p className='mb-4'>
@@ -48,7 +45,6 @@ function OutputTabs(props) {
                         </span>
                         {' '}this is the description of whatever the document that is selected it
                     </p>
-                </div>
             </Tabs.Content>
         </Tabs.Root >
     )
