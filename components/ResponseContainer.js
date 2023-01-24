@@ -61,7 +61,7 @@ export default function ResponseContainer(props) {
                     className='outline-none text-blue-500 text-lg border-2 p-4 rounded-xl border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 mb-12 min-w-full'
                     suppressContentEditableWarning={true}
                 />
-                <div className='my-6 font-merry'>
+                <div className='my-6'>
                     {loadingStream ?
                         <p>Loading...</p> :
                         responseStream && responseStream.map((item, index) => {
