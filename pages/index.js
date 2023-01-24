@@ -7,6 +7,10 @@ import UIV2 from '../components/UIv2'
 import UIV3 from '../components/UIv3'
 
 export default function Index(props) {
+  // ! DEBUG -------------------------------------
+  console.log(props)
+  // ! DEBUG -------------------------------------
+
   // document list
   const docs = props && props.data && props.data['docs'] ? props.data['docs'] : ['Failed to load docs...'];
 
