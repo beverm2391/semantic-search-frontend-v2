@@ -202,8 +202,6 @@ a {
 }
 
 .stats-container {
-  @apply p-4;
-  width: 100%;
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;

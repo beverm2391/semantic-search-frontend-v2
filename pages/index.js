@@ -91,7 +91,11 @@ export default function Index(props) {
       })
 
     setTimeout(() => {
-      axios.get(`${props.baseUrl}/docs/sync`)
+      axios.get(`${props.baseUrl}/docs/sync`, {
+        headers: {
+          'X-API-KEY': MY_API_KEY
+        }
+      })
     }, 1000)
 
     // force refresh the page to trigger getServerSideProps and update the docs list

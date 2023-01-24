@@ -51,14 +51,14 @@ export default function ResponseContainer(props) {
     }, [responseStream, loading])
 
     return (
-        <div className={`w-full flex flex-col h-full border-gray-200 dark:border-gray-800 shadow-left overflow-clip
+        <div className={`w-full flex flex-col h-full border-gray-200 dark:border-gray-800 shadow-left overflow-clip whitespace-pre-wrap
         ${props.activeTab === 2 ? 'hidden' : ''} fade-in`}>
-            <div className='dark:text-gray-300 pt-10 pb-12 md:px-24 py-12 h-full leading-7 outline-none overflow-scroll'>
+            <div className='dark:text-gray-300 pt-10 pb-12 md:px-24 py-12 h-full leading-7 w-full outline-none overflow-scroll'>
                 <p
                     ref={queryRef}
                     contentEditable={true}
                     minLength='0'
-                    className='outline-none text-blue-500 text-lg border-2 p-4 rounded-xl border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 mb-12'
+                    className='outline-none text-blue-500 text-lg border-2 p-4 rounded-xl border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 mb-12 min-w-full'
                     suppressContentEditableWarning={true}
                 />
                 <div className='my-6 font-merry'>

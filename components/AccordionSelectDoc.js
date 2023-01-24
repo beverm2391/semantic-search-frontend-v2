@@ -45,8 +45,9 @@ function AccordianSelectDoc(props) {
                                             </RadioGroup.Indicator>
                                         </RadioGroup.Item>
                                         <label className="Label hover:cursor-pointer text-gray-500 dark:text-gray-300 hover:text-purple-500 font-medium p-3 rounded-lg"
-                                            htmlFor={`${idx1}-${idx2}`}>
-                                            {document}
+                                            htmlFor={`${idx1}-${idx2}`}
+                                            >
+                                            {document.substring(0, 22)} {document && document.length > 22 && '...'}
                                         </label>
                                     </div>
                                 ))}

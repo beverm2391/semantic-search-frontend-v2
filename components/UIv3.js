@@ -7,6 +7,7 @@ import OutputTabs from './OutputTabs';
 import * as Separator from '@radix-ui/react-separator';
 import ResponseContainer from './ResponseContainer';
 import { motion } from 'framer-motion';
+import DocInfo from './DocInfo';
 
 export default function UINew(props) {
     const {
@@ -59,25 +60,7 @@ export default function UINew(props) {
         };
     }, [handleClick]);
 
-    // ! FOR FILE UPLOAD ------------------------------------------------------
-    const fileUploadRef = useRef(null)
-    const onFileChange = async e => {
-        if (e.target.files && e.target.files.length > 0) {
-            setDocForUpload(e.target.files[0])
-        }
-    }
-
-    // ! Unpack responseData --------------------------------------------------
-    const context_pages = responseData && responseData['context_pages'] ? responseData['context_pages'] : null;
-    const response_time = responseData && responseData['time'] ? responseData['time'] : null;
-
-    const DocInfoContainer = (props) => {
-        return (
-            <div className={`fade-in ${props.activeTab === 1 ? 'hidden' : ''}`}>
-                <p>Test 2</p>
-            </div>
-        )
-    }
+    
 
     const [activeTab, setActiveTab] = useState(1);
 
@@ -98,7 +81,7 @@ export default function UINew(props) {
                 </div>
             </div>
 
-            <div className='ui-container flex flex-col w-full max-h-full'>
+            <div className='ui-container flex flex-col w-full max-h-full overflow-hidden'>
                 <div className='tabscontainer mb-2 flex flex-row border-gray-200 dark:border-gray-800 text-gray-400'>
                     <button
                         className={`h-12 min-w-[9rem] font-medium text-base mx-1 px-8 rounded-b-xl ${activeTab == 1 ? 'active-tab border-black dark:border-white bg-white dark:bg-gray-800 shadow-md  text-gray-700 dark:text-gray-200' : 'inactive-tab bg-gray-200 dark:bg-satin-deep-black dark:text-gray-500'}`}
@@ -111,21 +94,25 @@ export default function UINew(props) {
                         Documents
                     </button>
                 </div>
-                    <ResponseContainer
-                        loadingStream={loadingStream}
-                        responseStream={responseStream}
-                        handleClick={handleClick}
-                        loading={loading}
-                        flash={flash}
-                        textAreaValue={textAreaValue}
-                        setTextAreaValue={setTextAreaValue}
-                        query={query}
-                        setQuery={setQuery}
-                        activeTab={activeTab}
-                    />
-                    <DocInfoContainer
-                        activeTab={activeTab}
-                    />
+                <ResponseContainer
+                    loadingStream={loadingStream}
+                    responseStream={responseStream}
+                    handleClick={handleClick}
+                    loading={loading}
+                    flash={flash}
+                    textAreaValue={textAreaValue}
+                    setTextAreaValue={setTextAreaValue}
+                    query={query}
+                    setQuery={setQuery}
+                    activeTab={activeTab}
+                />
+                <DocInfo
+                    activeTab={activeTab}
+                    responseData={responseData}
+                    setDocForUpload={setDocForUpload}
+                    docForUpload={docForUpload}
+                    uploadDoc={uploadDoc}
+                />
             </div>
         </div>
     )

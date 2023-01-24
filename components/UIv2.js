@@ -69,7 +69,7 @@ export default function UINew(props) {
     return (
         <div className='main-container'>
             <div className='v2-col3'>
-                <div className='stats-container'>
+                <div className='stats-container '>
                     <button
                         className='inline-flex justify-center items-center mb-3 w-full bg-gray-50 rounded-lg p-3 dark:bg-gray-800 dark:border-gray-600 border-gray-100 border-2 font-merry hover:bg-gray-200 dark:hover:bg-gray-700 hover:cursor-pointer'
                         onClick={() => fileUploadRef.current.click()}
