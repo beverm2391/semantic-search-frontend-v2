@@ -60,15 +60,9 @@ export default function Container(props) {
                     </Link>
                     <Link
                         className={`font-medium px-8 text-black dark:text-white`}
-                        href="/"
+                        href="/dashboard"
                     >
                         Dashboard
-                    </Link>
-                    <Link
-                        className={`font-medium px-8 text-black dark:text-white`}
-                        href="/"
-                    >
-                        Pricing
                     </Link>
                 </div>
                 <div className="navmenucontainer">
