@@ -3,10 +3,12 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
 import { useRouter } from 'next/router';
-import UIV2 from '../components/UIv2'
+import { useSession, signIn } from 'next-auth/react'
 import UIV3 from '../components/UIv3'
 
 export default function Page(props) {
+  const { session_data: session, status } = useSession()
+
   // ? Debug props
   // ? console.log(props.length)
 
@@ -174,7 +176,7 @@ export default function Page(props) {
   // ]
 
   const folders = [
-    {'name': 'documents', 'content': docs}
+    { 'name': 'documents', 'content': docs }
   ]
 
   // pass props to UI
@@ -229,7 +231,7 @@ export async function getServerSideProps(context) {
   try {
     const res = await axios.get(list_endpoint, { headers: headers });
     const data = res.data;
-    
+
     // ? DEBUG
     console.log('DATA:\n')
     data ? console.log(data) : console.log('Data is null');

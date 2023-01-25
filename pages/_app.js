@@ -1,14 +1,16 @@
 import '../styles/globals.css';
 import { ThemeProvider } from 'next-themes'
 import { Inter } from '@next/font/google';
-import { useState } from 'react'
+import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({
   subsets: ['latin'],
   fallback: ['arial']
 });
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component,
+  pageProps: { session, ...pageProps }
+}) {
   return (
     <>
       <style jsx global>
@@ -18,11 +20,13 @@ export default function App({ Component, pageProps }) {
         }
       `}
       </style>
-      <ThemeProvider attribute='class'>
+      <SessionProvider session={session}>
+        <ThemeProvider attribute='class'>
           <main className={`${inter.className}`}>
-            <Component {...pageProps}/>
+            <Component {...pageProps} />
           </main>
-      </ThemeProvider>
+        </ThemeProvider>
+      </SessionProvider>
     </>
   )
 }
