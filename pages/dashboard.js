@@ -3,12 +3,9 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import AlertDialog from '../components/AlertDialog'
 import { useRouter } from 'next/router';
-import { useSession, signIn } from 'next-auth/react'
 import UIV3 from '../components/UIv3'
 
 export default function Page(props) {
-  const { session_data: session, status } = useSession()
-
   // ? Debug props
   // ? console.log(props.length)
 
